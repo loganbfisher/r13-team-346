@@ -2,7 +2,7 @@ class AuthenticationsController < ApplicationController
   # GET /authentications
   # GET /authentications.json
   def index
-    @authentications = Authentication.all
+    @authentications = current_user.authentications if current_user
 
     respond_to do |format|
       format.html # index.html.erb
@@ -40,16 +40,22 @@ class AuthenticationsController < ApplicationController
   # POST /authentications
   # POST /authentications.json
   def create
-    @authentication = Authentication.new(params[:authentication])
-
-    respond_to do |format|
-      if @authentication.save
-        format.html { redirect_to @authentication, notice: 'Authentication was successfully created.' }
-        format.json { render json: @authentication, status: :created, location: @authentication }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @authentication.errors, status: :unprocessable_entity }
-      end
+    omniauth = request.env["omniauth.auth"]
+    authentication = Authentication.where(:provider => omniauth['provider'], :uid => omniauth['uid']).first
+    if authentication
+      flash[:notice] = t(:signed_in)
+      sign_in_and_redirect(:user, authentication.user)
+    elsif current_user
+      current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      flash[:notice] = t(:success)
+      redirect_to authentications_url
+    elsif user = create_new_omniauth_user(omniauth)
+      user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      flash[:notice] = t(:welcome)
+      sign_in_and_redirect(:user, user)
+    else
+      flash[:alert] = t(:fail)
+      redirect_to new_user_registration_url
     end
   end
 
@@ -72,12 +78,19 @@ class AuthenticationsController < ApplicationController
   # DELETE /authentications/1
   # DELETE /authentications/1.json
   def destroy
-    @authentication = Authentication.find(params[:id])
+    @authentication = current_user.authentications.find(params[:id])
     @authentication.destroy
+    flash[:notice] = t(:successfully_destroyed_authentication)
+    redirect_to authentications_url
+  end
 
-    respond_to do |format|
-      format.html { redirect_to authentications_url }
-      format.json { head :no_content }
+  def create_new_omniauth_user(omniauth)
+    user = User.new
+    user.apply_omniauth(omniauth)
+    if user.save
+      user
+    else
+      nil
     end
   end
 end

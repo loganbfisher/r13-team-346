@@ -11,4 +11,7 @@ Pugwarriors::Application.routes.draw do
   resources :users
 
   mount Foundation::Icons::Rails::Engine => '/fi'
+  match '/users/signout' => 'sessions#destroy', :as => :signout
+
+  match '/auth/:provider/callback' => 'authentications#create'
 end
