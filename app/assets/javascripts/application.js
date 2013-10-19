@@ -17,3 +17,10 @@
 
 $(function(){ $(document).foundation(); });
 $('.datePicker').datepicker();
+
+$('.next-button').click(function(){
+    $('#tweet-information').hide("slide",{direction: 'right'}, 500, function(){
+        $('#additional-information').show("slide",{direction: 'left'})
+    }) ;
+});
+

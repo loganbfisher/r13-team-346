@@ -1,10 +1,12 @@
 /*= require foundation-icons
+*= require animate
 @import "foundation_and_overrides";
 /* Add imports of custom sass/scss files here */
 
 @import "globals";
 @import "home";
 @import "game";
+
 
 .brand {
   float: left;

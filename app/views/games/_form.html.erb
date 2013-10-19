@@ -1,4 +1,4 @@
-<div id="create-game" class="large-9 columns large-centered">
+<div id="create-game" class="large-12 columns">
   <h1>Create a pick-up game.</h1>
   <%= form_for(@game) do |f| %>
     <% if @game.errors.any? %>
@@ -13,60 +13,56 @@
     <% end %>
 
     <div class="row">
-      <div class="large-12 columns">
-        <%= f.label(:name, "Name") %>
-        <%= f.text_field(:name, :placeholder => "Enter a name for your game.")  %>
+      <div id="tweet-information" class="large-12 columns">
+        <div class="row">
+          <h4 class="clearfix">
+            <div class="large-12 columns">
+              <p class="large-5 columns">I want to play a pick-up game of</p>
+              <p class="large-7 columns"><%= f.text_field(:game_type, :placeholder => "What type of game do you want to play?") %></p>
+            </div>
+            <div class="large-12 columns">
+              <p class="large-2 columns">Meet me at</p>
+              <p class="large-4 columns"><%= f.text_field(:location, :placeholder => "Where is the location of your game?") %></p>
+              <p class="large-1 columns"> at,</p>
+              <p class="large-2 columns"><%= f.text_field(:time, :placeholder => "What time?") %></p>
+              <p class="large-1 columns">on, </p>
+              <p class="large-2 columns"><%= f.datepicker 'date', :class => 'datePicker' %></p>
+            </div>
+          </h4>
+        </div>
+        <div class="large-12 columns">
+          <%= link_to "Next", '#', :class => 'button large-12 columns next-button' %>
+        </div>
       </div>
 
-      <div class="large-12 columns">
-        <%= f.label(:game_type, "Game type") %>
-        <%= f.text_field(:game_type, :placeholder => "What type of game do you want to play?") %>
-      </div>
 
-      <div class="large-12 columns">
-        <%= f.label(:location, "Location") %>
-        <%= f.text_field(:location, :placeholder => "Where is the location of your game?") %>
-      </div>
+      <div style="display: none;" id="additional-information">
+        <div class="large-4 columns">
+          <%= f.label(:city, "City") %>
+          <%= f.text_field(:city, :placeholder => "City") %>
+        </div>
 
-      <div class="large-4 columns">
-        <%= f.label(:city, "City") %>
-        <%= f.text_field(:city, :placeholder => "City") %>
-      </div>
+        <div class="large-4 columns">
+          <%= f.label(:state, "State") %>
+          <%= f.text_field(:state, :placeholder => "State") %>
+        </div>
 
-      <div class="large-4 columns">
-        <%= f.label(:state, "State") %>
-        <%= f.text_field(:state, :placeholder => "State") %>
-      </div>
+        <div class="large-4 columns">
+          <%= f.label(:zip, "Zip") %>
+          <%= f.text_field(:zip, :placeholder => "Zip") %>
+        </div>
 
-      <div class="large-4 columns">
-        <%= f.label(:zip, "Zip") %>
-        <%= f.text_field(:zip, :placeholder => "Zip") %>
-      </div>
+        <div class="large-4 columns">
+          <%= f.label(:player_max, "Max number of players?") %>
+          <%= f.text_field(:player_max, :placeholder => "Enter a number") %>
+        </div>
 
-      <div class="large-4 columns">
-        <%= f.label(:date, "Date") %>
-        <%= f.datepicker 'date', :class => 'datePicker' %>
-      </div>
-
-      <div class="large-4 columns">
-        <%= f.label(:time, "Start time") %>
-        <%= f.text_field(:time, :placeholder => "What time?") %>
-      </div>
-
-      <div class="large-4 columns">
-        <%= f.label(:player_max, "Max number of players?") %>
-        <%= f.text_field(:player_max, :placeholder => "Enter a number") %>
-      </div>
-
-      <div class="large-12 columns">
-        <%= f.label(:equipment, "Equipment") %>
-        <%= f.text_field(:equipment, :placeholder => "Do players need to bring any equipment?") %>
-      </div>
-
-      <div class="large-12 columns">
+        <div class="large-12 columns">
+          <%= f.label(:equipment, "Equipment") %>
+          <%= f.text_field(:equipment, :placeholder => "Do players need to bring any equipment?") %>
+        </div>
         <%= f.submit "Get this game started!", :class => 'button large-12 columns' %>
       </div>
     </div>
-
   <% end %>
 </div>
