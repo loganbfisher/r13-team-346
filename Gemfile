@@ -17,6 +17,8 @@ gem 'figaro'
 gem 'mongoid'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'twitter'
+gem 'geocoder'
 gem 'capistrano', '~> 2.15'
 group :development do
   gem 'rvm-capistrano'

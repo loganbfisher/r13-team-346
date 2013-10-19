@@ -11,6 +11,8 @@ class Game
   field :time, type: String
   field :player_max, type: String
   field :equipment, type: String
+  field :coordinates, type: Array
+  field :place_id, type: Integer
 
   has_many :tweets
 end
