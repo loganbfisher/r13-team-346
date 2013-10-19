@@ -42,6 +42,8 @@ class AuthenticationsController < ApplicationController
   def create
     omniauth = request.env["omniauth.auth"]
     authentication = Authentication.where(:provider => omniauth['provider'], :uid => omniauth['uid']).first
+    session[:token] = omniauth['credentials']['token']
+    session[:secret] = omniauth['credentials']['secret']
     if authentication
       flash[:notice] = t(:signed_in)
       sign_in_and_redirect(:user, authentication.user)
