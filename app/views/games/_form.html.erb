@@ -1,12 +1,9 @@
-
-
 <div class="large-9 columns large-centered">
   <h1>Create a pick-up game.</h1>
   <%= form_for(@game) do |f| %>
     <% if @game.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
-
         <ul>
           <% @game.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
@@ -15,9 +12,62 @@
       </div>
     <% end %>
 
-    <div class="actions">
-      <%= f.submit %>
+    <div class="row">
+      <div class="large-12 columns">
+        <%= f.label(:name, "Name") %>
+        <%= f.text_field(:name) %>
+      </div>
+
+      <div class="large-12 columns">
+        <%= f.label(:game_type, "Game type") %>
+        <%= f.text_field(:game_type) %>
+      </div>
+
+      <div class="large-12 columns">
+        <%= f.label(:location, "Location") %>
+        <%= f.text_field(:location) %>
+      </div>
+
+      <div class="large-4 columns">
+        <%= f.label(:city, "City") %>
+        <%= f.text_field(:city) %>
+      </div>
+
+      <div class="large-4 columns">
+        <%= f.label(:state, "State") %>
+        <%= f.text_field(:state) %>
+      </div>
+
+      <div class="large-4 columns">
+        <%= f.label(:zip, "Zip") %>
+        <%= f.text_field(:zip) %>
+      </div>
+
+      <div class="large-4 columns">
+        <%= f.label(:date, "Date") %>
+        <%= f.text_field(:date) %>
+      </div>
+
+      <div class="large-4 columns">
+        <%= f.label(:time, "Start time") %>
+        <%= f.text_field(:time) %>
+      </div>
+
+      <div class="large-4 columns">
+        <%= f.label(:player_max, "Max number of players?") %>
+        <%= f.text_field(:player_max) %>
+      </div>
+
+      <div class="large-12 columns">
+        <%= f.label(:equipment, "Equipment") %>
+        <%= f.text_field(:equipment) %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
     </div>
+
   <% end %>
   <button class="button">Get this game started!</button>
 </div>
