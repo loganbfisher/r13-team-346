@@ -11,57 +11,66 @@
         </ul>
       </div>
     <% end %>
-
-    <div class="row">
-      <div id="tweet-information" class="large-12 columns">
-        <div class="row">
-          <h4 class="clearfix">
+    <div id="tweet-information" class="large-12 columns">
+      <div class="row">
+        <h4 class="clearfix">
+          <div class="row">
             <div class="large-12 columns">
-              <p class="large-5 columns">I want to play a pick-up game of</p>
-              <p class="large-7 columns"><%= f.text_field(:game_type, :placeholder => "What type of game do you want to play?") %></p>
+              <div class="row">
+                <div class="large-5 columns"><label>I want to play a pick-up game of</label></div>
+                <div class="large-7 columns"><%= f.text_field(:game_type, :placeholder => "What type of game do you want to play?") %></div>
+              </div>
             </div>
             <div class="large-12 columns">
-              <p class="large-2 columns">Meet me at</p>
-              <p class="large-4 columns"><%= f.text_field(:location, :placeholder => "Where is the location of your game?") %></p>
-              <p class="large-1 columns"> at,</p>
-              <p class="large-2 columns"><%= f.text_field(:time, :placeholder => "What time?") %></p>
-              <p class="large-1 columns">on, </p>
-              <p class="large-2 columns"><%= f.datepicker 'date', :class => 'datePicker' %></p>
+              <div class="row">
+                <div class="large-2 columns"><label>Meet me at</label></div>
+                <div class="large-4 columns"><%= f.text_field(:location, :placeholder => "Where is the location of your game?") %></div>
+                <div class="large-1 columns"><label> at,</label></div>
+                <div class="large-2 columns"><%= f.text_field(:time, :placeholder => "What time?") %></div>
+                <div class="large-1 columns"><label>on, </label></div>
+                <div class="large-2 columns"><%= f.datepicker 'date', :class => 'datePicker' %></div>
+              </div>
             </div>
-          </h4>
-        </div>
-        <div class="large-12 columns">
-          <%= link_to "Next", '#', :class => 'button large-12 columns next-button' %>
-        </div>
+          </div>
+        </h4>
+        <%= link_to "Next", '#', :class => 'button large-12 columns next-button' %>
       </div>
-
-
-      <div style="display: none;" id="additional-information">
-        <div class="large-4 columns">
-          <%= f.label(:city, "City") %>
-          <%= f.text_field(:city, :placeholder => "City") %>
-        </div>
-
-        <div class="large-4 columns">
-          <%= f.label(:state, "State") %>
-          <%= f.text_field(:state, :placeholder => "State") %>
-        </div>
-
-        <div class="large-4 columns">
-          <%= f.label(:zip, "Zip") %>
-          <%= f.text_field(:zip, :placeholder => "Zip") %>
-        </div>
-
-        <div class="large-4 columns">
-          <%= f.label(:player_max, "Max number of players?") %>
-          <%= f.text_field(:player_max, :placeholder => "Enter a number") %>
-        </div>
-
+    </div>
+    <div style="display: none;" id="additional-information">
+      <div class="row">
         <div class="large-12 columns">
-          <%= f.label(:equipment, "Equipment") %>
-          <%= f.text_field(:equipment, :placeholder => "Do players need to bring any equipment?") %>
+          <div class="row">
+            <div class="large-4 columns">
+              <%= f.label(:city, "City") %>
+              <%= f.text_field(:city, :placeholder => "City") %>
+            </div>
+            <div class="large-4 columns">
+              <%= f.label(:state, "State") %>
+              <%= f.text_field(:state, :placeholder => "State") %>
+            </div>
+            <div class="large-4 columns">
+              <%= f.label(:zip, "Zip") %>
+              <%= f.text_field(:zip, :placeholder => "Zip") %>
+            </div>
+          </div>
+           <div class="row">
+             <div class="large-12 columns">
+               <%= f.label(:player_max, "Max number of players?") %>
+               <%= f.text_field(:player_max, :placeholder => "Enter a number") %>
+             </div>
+           </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <%= f.label(:equipment, "Equipment") %>
+              <%= f.text_field(:equipment, :placeholder => "Do players need to bring any equipment?") %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <%= f.submit "Get this game started!", :class => 'button small-12' %>
+            </div>
+          </div>
         </div>
-        <%= f.submit "Get this game started!", :class => 'button large-12 columns' %>
       </div>
     </div>
   <% end %>

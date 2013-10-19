@@ -19,8 +19,14 @@ $(function(){ $(document).foundation(); });
 $('.datePicker').datepicker();
 
 $('.next-button').click(function(){
-    $('#tweet-information').hide("slide",{direction: 'right'}, 500, function(){
-        $('#additional-information').show("slide",{direction: 'left'})
-    }) ;
+    $('#tweet-information').fadeOut("fast", function(){
+        $('#tweet-information').addClass('animated bounceOutLeft').hide();
+        $('#additional-information').show();
+        $('#additional-information').addClass('animated bounceInLeft');
+    });
+    if ($('#additional-information').is(':visible')) {
+        $('#tweet-information').hide();
+    }
+
 });
 
