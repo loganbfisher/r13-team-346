@@ -195,6 +195,8 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    rvm-capistrano (1.5.1)
+      capistrano (~> 2.15.4)
     sass (3.2.12)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -260,6 +262,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.14)
   rspec-rails
+  rvm-capistrano
   sass-rails (~> 3.2.3)
   therubyracer
   thin

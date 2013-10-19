@@ -16,6 +16,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'capistrano', '~> 2.15'
 group :development do
+  gem 'rvm-capistrano'
   gem 'capistrano-unicorn', :require => false
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
