@@ -11,7 +11,7 @@ preload_app true
 timeout 180
 listen "/tmp/unicorn.app1.sock"
 
-user 'www-data', 'www-data' 
+#user 'www-data', 'www-data' 
 
 # Fill path to your app
 working_directory app_path
