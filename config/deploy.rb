@@ -73,5 +73,5 @@ end
 
  
 after "deploy:update_code", "mongoid:copy", "appconfig:copy"
-after "deploy:update_code", "mongoid:symlink", "appconfig:copy"
+after "deploy:update_code", "mongoid:symlink", "appconfig:symlink"
 after "deploy:update", "mongoid:index"
