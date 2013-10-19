@@ -11,4 +11,6 @@ class Game
   field :time, type: Time
   field :player_max, type: String
   field :equipment, type: String
+
+  has_many :tweets
 end
