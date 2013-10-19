@@ -11,7 +11,7 @@ preload_app true
 timeout 180
 listen "/tmp/unicorn.app1.sock"
 
-#user 'www-data', 'www-data' 
+user 'www-data', 'www-data' 
 
 # Fill path to your app
 working_directory app_path
@@ -27,8 +27,6 @@ stdout_path "log/unicorn.log"
 pid "#{app_path}/tmp/pids/unicorn.pid"
 
 before_fork do |server, worker|
-  ActiveRecord::Base.connection.disconnect!
-
   old_pid = "#{server.config[:pid]}.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
@@ -37,8 +35,4 @@ before_fork do |server, worker|
       # someone else did our job for us
     end
   end
-end
-
-after_fork do |server, worker|
-  ActiveRecord::Base.establish_connection
 end
