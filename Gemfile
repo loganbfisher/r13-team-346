@@ -8,7 +8,8 @@ group :assets do
 end
 gem 'zurb-foundation'
 gem 'google-webfonts'
-gem 'jquery-rails'
+gem 'jquery_datepicker'
+gem 'jquery-rails', '~> 2.3.0'
 gem 'devise'
 gem 'figaro'
 gem 'mongoid'
