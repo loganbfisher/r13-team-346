@@ -1,5 +1,47 @@
-<p id="notice"><%= notice %></p>
+<div id="game-page" class="large-12 columns">
+  <div class="row">
+    <div class="large-9 columns large-centered">
+      <p id="notice"><%= notice %></p>
+      <div class="button-bar">
+        <ul class="button-group">
+          <li><%= link_to 'Back', games_path, :class => 'small button' %></li>
+          <li><%= link_to 'Edit', edit_game_path(@game), :class => 'small button' %></li>
+        </ul>
+      </div>
+
+      <section class="large-9 columns">
+        <div class="row">
+          <div class="row">
+            <div class="small-6 columns">
+              <h4><%= @game.date %></h4>
+            </div>
+            <div class="small-6 columns">
+              <h4 class="right"><%= @game.time %></h4>
+            </div>
+          </div>
+          <div class="panel">
+            <p>Username</p>
+            <h2><%= @game.name %></h2>
+            <p>Max number of players: <%= @game.player_max %></p>
+          </div>
+          <div class="row first-row">
+            <div class="large-12 columns">
+              <h4 class="right"><%= @game.game_type %></h4>
+              <h4 class="left location">
+                <%= @game.location %><br>
+                <%= @game.city %>, <%= @game.state %> <%= @game.zip %>
+              </h4>
+            </div>
+          </div>
+          <button class="button large-12 columns">You in?</button>
+        </div>
+      </section>
+      <section class="large-3 columns">
+        <h4>Equipment</h4>
+        <%= @game.equipment %>
+      </section>
+    </div>
+  </div>
+</div>
 
 
-<%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>

@@ -3,9 +3,13 @@
     <li class="name">
       <h1><a href="#"><%= link_to "Pugwarriors", root_path, :class => 'brand' %></a></h1>
     </li>
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
     <section class="top-bar-section">
       <!-- Right Nav Section -->
       <ul class="right">
+        <li>
+          <%= link_to 'Find a game', games_path %>
+        </li>
         <% if user_signed_in? %>
           <li>
             <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>

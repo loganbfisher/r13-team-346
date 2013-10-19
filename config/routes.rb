@@ -9,4 +9,6 @@ Pugwarriors::Application.routes.draw do
   root :to => "home#index"
   devise_for :users
   resources :users
+
+  mount Foundation::Icons::Rails::Engine => '/fi'
 end

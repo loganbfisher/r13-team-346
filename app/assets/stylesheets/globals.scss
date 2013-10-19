@@ -3,3 +3,10 @@ body { background: $black; }
 input[type="text"] { height: 46px; }
 .prefix.button { height: 46px; padding: 5px 10px; line-height: 35px; }
 label { font-family: "Raleway"; font-weight: bold; color: $white; font-size: 1em; margin-bottom: 10px; }
+strong { color: $white; }
+.glyph {
+  &.large { font-size: 1em }
+  &.medium { font-size: .7em }
+  &.small { font-size: .5em }
+}
+.clearfix { @include clearfix(); }

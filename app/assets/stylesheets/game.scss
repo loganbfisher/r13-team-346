@@ -1,3 +1,10 @@
 #create-game {
   h1 { text-align: center; font-size: 3em; }
 }
+
+#game-page {
+  p { margin: 0; }
+  h4 { margin-top: 0;
+    &.location {  }
+  }
+}
