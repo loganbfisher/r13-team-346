@@ -28,7 +28,7 @@ role :app, LINODE_SERVER_HOSTNAME
 # Add Configuration Files & Compile Assets
 after 'deploy:update_code' do
   # Compile Assets
-  run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
+  run "cd #{release_path}; RAILS_ENV=production rake assets:precompile; bundle install"
 end
  
 deploy.task :restart, :roles => :app do
@@ -37,10 +37,28 @@ deploy.task :restart, :roles => :app do
   sudo "chown -R www-data:www-data #{latest_release}"
   sudo "chown -R www-data:www-data #{shared_path}/log"
 
-  sudo "cd #{release_path}; rvm use 1.9.3-p392"
- 
   # Restart Application
   unicorn.restart
   sudo "ln -nfs #{release_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
 end
 
+namespace :mongoid do
+  desc "Copy mongoid config"
+  task :copy do
+    upload "config/mongoid.yml", "#{shared_path}/mongoid.yml", :via => :scp
+  end
+ 
+  desc "Link the mongoid config in the release_path"
+  task :symlink do
+    run "test -f #{release_path}/config/mongoid.yml || ln -s #{shared_path}/mongoid.yml #{release_path}/config/mongoid.yml"
+  end
+ 
+  desc "Create MongoDB indexes"
+  task :index do
+    run "cd #{current_path} && rake db:mongoid:create_indexes", :once => true
+  end
+end
+ 
+after "deploy:update_code", "mongoid:copy"
+after "deploy:update_code", "mongoid:symlink"
+after "deploy:update", "mongoid:index"
