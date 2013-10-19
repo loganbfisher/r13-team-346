@@ -28,7 +28,7 @@ role :app, LINODE_SERVER_HOSTNAME
 # Add Configuration Files & Compile Assets
 after 'deploy:update_code' do
   # Compile Assets
-  run "cd #{release_path}; RAILS_ENV=production rake assets:precompile; bundle install"
+  run "cd #{release_path}; RAILS_ENV=production; bundle install; rake assets:precompile"
 end
  
 deploy.task :restart, :roles => :app do
@@ -58,7 +58,20 @@ namespace :mongoid do
     run "cd #{current_path} && rake db:mongoid:create_indexes", :once => true
   end
 end
+
+namespace :appconfig do
+  desc "Copy application config"
+  task :copy do
+    upload "config/application.yml", "#{shared_path}/application.yml", :via => :scp
+  end
  
-after "deploy:update_code", "mongoid:copy"
-after "deploy:update_code", "mongoid:symlink"
+  desc "Link the application.yml in the release_path"
+  task :symlink do
+    run "test -f #{release_path}/config/application.yml || ln -s #{shared_path}/application.yml #{release_path}/config/application.yml"
+  end
+end
+
+ 
+after "deploy:update_code", "mongoid:copy", "appconfig:copy"
+after "deploy:update_code", "mongoid:symlink", "appconfig:copy"
 after "deploy:update", "mongoid:index"
