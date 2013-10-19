@@ -12,7 +12,11 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'figaro'
 gem 'mongoid'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'capistrano', '~> 2.15'
 group :development do
+  gem 'capistrano-unicorn', :require => false
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'quiet_assets'
@@ -24,6 +28,7 @@ group :development, :test do
 end
 group :production do
   gem 'unicorn'
+  gem 'therubyracer'
 end
 group :test do
   gem 'capybara'
