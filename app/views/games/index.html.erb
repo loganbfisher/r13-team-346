@@ -1,21 +1,39 @@
-<h1>Listing games</h1>
+<div id="create-game" class="large-12 columns">
+  <div class="row">
+    <div class="large-9 columns large-centered">
+      <h1>Find games near you</h1>
+      <div class="right">
+        <div class="row collapse">
+          <div class="small-8 columns">
+            <input type="text" placeholder="Enter your zip code">
+          </div>
+          <div class="small-4 columns">
+            <a href="#" class="button prefix">Search</a>
+          </div>
+        </div>
+      </div>
+      <div class="left">
+        <%= link_to 'New Game', new_game_path, :class => 'button' %>
+      </div>
+      <table class="large-12">
+        <thead>
+          <tr>
+            <th><strong>Game</strong></th>
+            <th><strong>Type</strong></th>
+            <th><strong>Location</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @games.each do |game| %>
+            <tr>
+              <td><%= link_to game.name, game %></td>
+              <td><%= game.game_type %></td>
+              <td><%= game.zip %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @games.each do |game| %>
-  <tr>
-    <td><%= link_to 'Show', game %></td>
-    <td><%= link_to 'Edit', edit_game_path(game) %></td>
-    <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Game', new_game_path %>
