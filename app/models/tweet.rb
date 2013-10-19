@@ -1,4 +1,4 @@
-module Tweet
+class Tweet
   include Mongoid::Document
 
   field :tweet_id, type: Integer

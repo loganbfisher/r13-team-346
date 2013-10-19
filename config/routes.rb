@@ -1,4 +1,8 @@
 Pugwarriors::Application.routes.draw do
+  resources :authentications
+  resources :games
+
+
   authenticated :user do
     root :to => 'home#index'
   end
