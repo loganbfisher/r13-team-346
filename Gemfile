@@ -7,6 +7,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 gem 'zurb-foundation'
+gem 'google-webfonts'
 gem 'jquery-rails'
 gem 'devise'
 gem 'figaro'
