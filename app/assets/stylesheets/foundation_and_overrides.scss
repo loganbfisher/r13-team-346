@@ -81,8 +81,8 @@ $default-float: left;
    $white: #fff;
    $black: #000;
    $grey: #ccc;
-// $primary-color: #2ba6cb;
-// $secondary-color: #e9e9e9;
+   $primary-color: #064472;
+   $secondary-color: #191919;
 // $alert-color: #c60f13;
 // $success-color: #5da423;
 
@@ -304,15 +304,15 @@ $default-float: left;
 // $input-font-family: inherit;
 // $input-font-color: rgba(0,0,0,0.75);
 // $input-font-size: em-calc(14);
-// $input-bg-color: #fff;
-// $input-focus-bg-color: darken(#fff, 2%);
-// $input-border-color: darken(#fff, 20%);
-// $input-focus-border-color: darken(#fff, 40%);
+   $input-bg-color: #333;
+   $input-focus-bg-color: darken(#333, 2%);
+   $input-border-color: darken(#666, 20%);
+   $input-focus-border-color: #57b7ff;
 // $input-border-style: solid;
 // $input-border-width: 1px;
 // $input-disabled-bg: #ddd;
-// $input-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-// $input-include-glowing-effect: true;
+   $input-box-shadow: inset 0 3px 3px rgba(0,0,0,0.8);
+   $input-include-glowing-effect: true;
 
 // We use these to style the fieldset border and spacing.
 
@@ -898,7 +898,7 @@ $default-float: left;
 
 // We use these to control the background and border styles
 
-// $panel-bg: darken(#fff, 5%);
+   $panel-bg: darken($primary-color, 5%);
 // $panel-border-style: solid;
 // $panel-border-size: 1px;
 
@@ -910,7 +910,7 @@ $default-float: left;
 // We use these to set default inner padding and bottom margin
 
 // $panel-margin-bottom: em-calc(20);
-// $panel-padding: em-calc(20);
+   $panel-padding: 10px;
 
 // We use these to set default font colors
 

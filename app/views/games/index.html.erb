@@ -1,3 +1,6 @@
+<div class="large-4 columns large-centered">
+  <%= image_tag("logo-mascot.png") %>
+</div>
 <div id="create-game" class="large-12 columns">
   <div class="row">
     <div class="large-9 columns large-centered">
@@ -15,24 +18,16 @@
       <div class="left">
         <%= link_to 'New Game', new_game_path, :class => 'button' %>
       </div>
-      <table class="large-12">
-        <thead>
-          <tr>
-            <th>Game</th>
-            <th>Type</th>
-            <th>Location</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @games.each do |game| %>
-            <tr>
-              <td><%= link_to game.name, game %></td>
-              <td><%= game.game_type %></td>
-              <td><%= game.zip %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <% @games.each do |game| %>
+      <div id="game-item" class="panel callout radius large-12 columns">
+        <h4><%= link_to game.name, game %></h4>
+        <p>I want to play a pick-up game of <%= game.game_type %>.  Meet me at <%= game.location %> at, <%= game.time %> on, <%= game.date %></p>
+        <div class="panel clearfix">
+          <p class="radius secondary label right"><%= game.game_type %></p>
+          <%= link_to "Visit game", game, :class => 'button left secondary' %>
+        </div>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>

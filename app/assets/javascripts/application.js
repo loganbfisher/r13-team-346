@@ -19,14 +19,22 @@ $(function(){ $(document).foundation(); });
 $('.datePicker').datepicker();
 
 $('.next-button').click(function(){
-    $('#tweet-information').fadeOut("fast", function(){
-        $('#tweet-information').addClass('animated bounceOutLeft').hide();
-        $('#additional-information').show();
-        $('#additional-information').addClass('animated bounceInLeft');
-    });
+    $('#tweet-information').hide();
+    $('#tweet-information').addClass('animated bounceOutRight').hide();
+    $('#additional-information').show();
+    $('#additional-information').addClass('animated bounceInRight');
+
     if ($('#additional-information').is(':visible')) {
         $('#tweet-information').hide();
     }
+    return false;
+});
 
+$('.back-button').click(function(){
+    $('#additional-information').hide();
+    $('#tweet-information').show();
+    $('#tweet-information').removeClass('bounceOutRight');
+    $('#tweet-information').addClass('animated bounceInLeft');
+    return false;
 });
 

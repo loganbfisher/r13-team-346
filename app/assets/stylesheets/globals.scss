@@ -10,3 +10,4 @@ strong { color: $white; }
   &.small { font-size: .5em }
 }
 .clearfix { @include clearfix(); }
+h1.title { text-align: center; }

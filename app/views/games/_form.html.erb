@@ -1,5 +1,4 @@
 <div id="create-game" class="large-12 columns">
-  <h1>Create a pick-up game.</h1>
   <%= form_for(@game) do |f| %>
     <% if @game.errors.any? %>
       <div id="error_explanation">
@@ -17,28 +16,35 @@
           <div class="row">
             <div class="large-12 columns">
               <div class="row">
-                <div class="large-5 columns"><label>I want to play a pick-up game of</label></div>
+                <div class="tweet-text-sections large-5 columns"><label>I want to play a pick-up game of</label></div>
                 <div class="large-7 columns"><%= f.text_field(:game_type, :placeholder => "What type of game do you want to play?") %></div>
               </div>
             </div>
             <div class="large-12 columns">
               <div class="row">
-                <div class="large-2 columns"><label>Meet me at</label></div>
+                <div class="tweet-text-sections large-2 columns"><label>Meet me at</label></div>
                 <div class="large-4 columns"><%= f.text_field(:location, :placeholder => "Where is the location of your game?") %></div>
-                <div class="large-1 columns"><label> at,</label></div>
+                <div class="tweet-text-sections large-1 columns"><label> at,</label></div>
                 <div class="large-2 columns"><%= f.text_field(:time, :placeholder => "What time?") %></div>
-                <div class="large-1 columns"><label>on, </label></div>
+                <div class="tweet-text-sections large-1 columns"><label>on, </label></div>
                 <div class="large-2 columns"><%= f.datepicker 'date', :class => 'datePicker' %></div>
               </div>
             </div>
           </div>
         </h4>
-        <%= link_to "Next", '#', :class => 'button large-12 columns next-button' %>
+        <%= link_to "Next", '#', :class => 'button right next-button' %>
       </div>
     </div>
     <div style="display: none;" id="additional-information">
       <div class="row">
         <div class="large-12 columns">
+          <div class="row">
+            <div class="large-12 columns">
+              <%= f.label(:name, "Game title") %>
+              <%= f.text_field(:name, :placeholder => "Enter a game title.") %>
+            </div>
+          </div>
+
           <div class="row">
             <div class="large-4 columns">
               <%= f.label(:city, "City") %>
@@ -53,6 +59,7 @@
               <%= f.text_field(:zip, :placeholder => "Zip") %>
             </div>
           </div>
+          <p>Optional</p>
            <div class="row">
              <div class="large-12 columns">
                <%= f.label(:player_max, "Max number of players?") %>
@@ -67,7 +74,8 @@
           </div>
           <div class="row">
             <div class="large-12 columns">
-              <%= f.submit "Get this game started!", :class => 'button small-12' %>
+              <%= f.submit "Get this game started!", :class => 'button right' %>
+              <%= link_to "Back", '#', :class => 'button secondary left back-button' %>
             </div>
           </div>
         </div>

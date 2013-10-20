@@ -1,6 +1,13 @@
-<h1>Editing game</h1>
-
+<div class="button-bar">
+  <ul class="button-group">
+    <li><%= link_to 'View game', @game, :class => 'small button' %></li>
+    <li><%= link_to 'Find another game', games_path, :class => 'small button' %></li>
+  </ul>
+</div>
+<div class="large-4 columns large-centered">
+  <%= image_tag("logo-mascot.png") %>
+</div>
+<h1 class="title">Editing your pick-up game.</h1>
 <%= render 'form' %>
 
-<%= link_to 'Show', @game %> |
-<%= link_to 'Back', games_path %>
+
