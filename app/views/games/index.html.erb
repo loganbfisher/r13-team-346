@@ -5,16 +5,18 @@
   <div class="row">
     <div class="large-9 columns large-centered">
       <h1 class="title">Find games near you</h1>
-      <div class="right">
-        <div class="row collapse">
-          <div class="small-8 columns">
-            <input type="text" placeholder="Enter your zip code">
+      <%= form_for :games_filter, :url => '/games/filter' do |f|  %>
+          <div class="right">
+            <div class="row collapse">
+              <div class="small-8 columns">
+                <%= f.text_field :zip, :placeholder => "Enter your zip code", :value => @filter %>
+              </div>
+              <div class="small-4 columns">
+                <%= f.submit "Search", :class => "button prefix" %>
+              </div>
+            </div>
           </div>
-          <div class="small-4 columns">
-            <a href="#" class="button prefix">Search</a>
-          </div>
-        </div>
-      </div>
+      <% end %>
       <div class="left">
         <%= link_to 'New Game', new_game_path, :class => 'button' %>
       </div>

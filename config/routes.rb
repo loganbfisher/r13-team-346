@@ -14,6 +14,7 @@ Pugwarriors::Application.routes.draw do
   match '/users/signout' => 'sessions#destroy', :as => :signout
   match '/games/:id/join' => 'games#join'
   match '/users/:id/games' => 'users#games'
+  match '/games/filter' => 'games#filter'
 
   match '/auth/:provider/callback' => 'authentications#create'
 end
