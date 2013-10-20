@@ -56,7 +56,7 @@ class User
   def apply_omniauth(omniauth)
     info = omniauth['info']
     self.handle = info['nickname'] if handle.blank?
-    self.name = info['name'] if name.blank?
+    self.name = info['name']
     self.email = info['nickname'] + '@twitter.com'
     self.location = info['location']
     self.image = info['image']
