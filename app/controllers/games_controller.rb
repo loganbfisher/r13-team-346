@@ -52,6 +52,9 @@ class GamesController < ApplicationController
     if @game[:game_type]
       @game.tweet_text = 'Want to play some ' + @game[:game_type] + '? Meet me at ' + @game[:location] + ', ' + @game[:time] + ' on ' + @game[:date]
     end
+    if current_user
+      @game.admin = @current_user.twitter_id
+    end
     respond_to do |format|
       if @game.save
         if ENV["TWITTER_POSTS_ENABLED"] == "TRUE"

@@ -18,6 +18,7 @@ class User
   field :handle, :type => String
   field :image, :type => String
   field :url, :type => String
+  field :twitter_id, :type => Integer
   
   ## Recoverable
   field :reset_password_token,   :type => String
@@ -60,6 +61,7 @@ class User
     self.location = info['location']
     self.image = info['image']
     self.url = info['urls']['Twitter']
+    self.twitter_id = omniauth['uid'].to_i
     apply_trusted_services(omniauth) if self.new_record?
   end
 
