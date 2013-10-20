@@ -14,4 +14,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def games
+    if current_user
+      @user = User.find(params[:id])
+      @games = @user.games
+    end
+    redirect_to root_path
+  end
+
 end
