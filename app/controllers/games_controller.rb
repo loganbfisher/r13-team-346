@@ -41,6 +41,9 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.new(params[:game])
+    if @game[:game_type] && @game[:location]
+      @game.tweet_text = 'Want to play some ' + @game[:game_type] + '? Meet me at ' + @game[:location] + ', ' + @game[:time] + ' on ' + @game[:date]
+    end
     respond_to do |format|
       if @game.save
         if ENV["TWITTER_POSTS_ENABLED"] == "TRUE"
@@ -50,9 +53,10 @@ class GamesController < ApplicationController
           @game.coordinates = coordinates unless coordinates.nil?
           lat = coordinates.nil? ? nil : coordinates[0]
           long = coordinates.nil? ? nil : coordinates[1]
-          text = 'Wanna play some ' + game[:game_type] + '? ' + game[:name]
+          text = @game.tweet_text
           tweet = twitter.update(text, {:lat => lat, :long => long})
           @game.tweet_id = tweet[:id]
+          @current_user.tweet_id = tweet[:id]
           @game.save
         end
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
