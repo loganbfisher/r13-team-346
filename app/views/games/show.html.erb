@@ -1,54 +1,71 @@
+<div class="large-4 small-6 small-centered columns large-centered">
+  <%= image_tag("logo-mascot.png", :class => 'has-tip tip-bottom', :title => 'The pug in pugwarriors stands for "Pick-up game"', 'data-tooltip' => '') %>
+</div>
 <div id="game-page" class="large-12 columns">
   <div class="row">
     <div class="large-9 columns large-centered">
-      <div class="button-bar left">
-        <ul class="button-group">
-          <li><%= link_to 'Find another game', games_path, :class => 'small button' %></li>
-          <% if !@game.admin || (@game.admin && current_user && @game.admin == current_user.twitter_id)%>
-            <li><%= link_to 'Edit', edit_game_path(@game), :class => 'small button' %></li>
-          <% end %>
-        </ul>
-      </div>
-      <p id="notice"><%= notice %></p>
-      <section class="large-9 columns">
+      <section class="large-12 columns">
         <div class="row">
+
           <div class="row">
-            <div class="small-6 columns">
-              <h4><%= @game.date %></h4>
+            <div class="small-8 columns right">
+              <h4 class="right"><%= @game.game_type %> at <span class="handle"><%= @game.time %></span> on <span class="handle"><%= @game.date %></span></h4>
             </div>
-            <div class="small-6 columns">
-              <h4 class="right"><%= @game.time %></h4>
+            <div class="small-4 columns">
+              <div class="button-bar left">
+                <ul class="button-group">
+                  <li><%= link_to 'Find another game', games_path, :class => 'small button' %></li>
+                  <% if !@game.admin || (@game.admin && current_user && @game.admin == current_user.twitter_id)%>
+                    <li><%= link_to 'Edit', edit_game_path(@game), :class => 'small button' %></li>
+                  <% end %>
+                </ul>
+              </div>
             </div>
           </div>
-          <div class="panel">
+          <div class="panel clearfix">
             <% if @user %>
-              <p>@<%= @user.handle %></p>
+              <p class="handle">@<%= @user.handle %></p>
             <% end %>
             <h2><%= @game.name %></h2>
-            <p>Max number of players: <%= @game.player_max %></p>
+            <% if @game.player_max.present? %>
+              <p class="right">Max number of players: <span class="handle"><%= @game.player_max %></span></p>
+            <% end %>
           </div>
-          <div class="row first-row">
-            <div class="large-12 columns">
-              <h4 class="right"><%= @game.game_type %></h4>
-              <h4 class="left location">
-                <%= @game.location %><br>
-                <%= @game.city %>, <%= @game.state %> <%= @game.zip %>
-              </h4>
-              <h4><%= @game.equipment %></h4>
-            </div>
+          <div class="row">
+            <% if @game.location.present? %>
+              <div class="large-6 columns">
+                <div class="panel">
+                  <h3>Location:</h3>
+                  <p><%= @game.location %></p>
+                  <p><%= @game.city %>, <%= @game.state %> <%= @game.zip %></p>
+                </div>
+              </div>
+            <% end %>
+            <% if @game.equipment.present? %>
+              <div class="large-6 columns">
+                <div class="panel">
+                  <h3>Equipment:</h3>
+                  <p><%= @game.equipment %></p>
+                </div>
+              </div>
+            <% end %>
           </div>
           <%= link_to "You in ?  Let me know.", {:action => :join}, :class => 'button large-12 columns' %>
         </div>
       </section>
-      <section class="large-3 columns">
-        <h4>Users joined</h4>
-        <% if @users.present? && !@users.empty? %>
-          <% @users.each do |user| %>
-            <%= image_tag user.image, :title => user.name, :class => 'has-tip tip-bottom', 'data-tooltip' => '' %>
-          <% end %>
-        <% else %>
-          <em>Nobody has joined the game yet.</em>
-        <% end %>
+      <section class="row">
+        <div class="large-12 columns">
+          <div class="panel">
+            <h3>Users joined:</h3>
+            <% if @users.present? && !@users.empty? %>
+              <% @users.each do |user| %>
+                <%= image_tag user.image, :title => user.name, :class => 'has-tip tip-bottom', 'data-tooltip' => '' %>
+              <% end %>
+            <% else %>
+              <em>Nobody has joined the game yet.</em>
+            <% end %>
+          </div>
+        </div>
       </section>
     </div>
   </div>
