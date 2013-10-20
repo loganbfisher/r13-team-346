@@ -46,9 +46,9 @@ class AuthenticationsController < ApplicationController
     session[:secret] = omniauth['credentials']['secret']
     if authentication
       flash[:notice] = t(:signed_in)
-      if current_user
-        @current_user.apply_omniauth(omniauth)
-        @current_user.save
+      if user = User.where({:handle => omniauth['info']['nickname']}).first
+        user.apply_omniauth(omniauth)
+        user.save
       end
       sign_in_and_redirect(:user, authentication.user)
     elsif current_user
