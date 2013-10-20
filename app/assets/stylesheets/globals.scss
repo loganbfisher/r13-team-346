@@ -1,9 +1,45 @@
+@mixin border-radius($number) {
+  -moz-border-radius: $number;
+  -webkit-border-radius: $number;
+  border-radius: $number;
+}
+
 /* Global overrides */
 body { background: $black; }
-input[type="text"], input[type="email"], input[type="password"] { height: 46px; }
+input[type="text"], input[type="email"], input[type="password"] { height: 46px; @include border-radius(3px); }
 .prefix.button { height: 46px; padding: 5px 10px; line-height: 35px; }
+.button {
+  text-shadow: 1px 1px darken($primary-color, 50%);
+  @include border-radius(3px);
+  background: #064472; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzA2NDQ3MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDI1NDQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top,  #064472 0%, #002544 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#064472), color-stop(100%,#002544)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #064472 0%,#002544 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #064472 0%,#002544 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #064472 0%,#002544 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #064472 0%,#002544 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#064472', endColorstr='#002544',GradientType=0 ); /* IE6-8 */
+}
+.button.has-tip, .has-tip { color: inherit; border: 0; }
+.button.secondary {
+  text-shadow: 1px 1px darken($secondary-color, 50%);
+  background: #2d2d2d; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzJkMmQyZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwZjBmMGYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top,  #2d2d2d 0%, #0f0f0f 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2d2d2d), color-stop(100%,#0f0f0f)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #2d2d2d 0%,#0f0f0f 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #2d2d2d 0%,#0f0f0f 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #2d2d2d 0%,#0f0f0f 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #2d2d2d 0%,#0f0f0f 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d2d2d', endColorstr='#0f0f0f',GradientType=0 ); /* IE6-8 */
+
+}
 label { font-family: "Raleway"; font-weight: bold; color: $white; font-size: 1em; margin-bottom: 10px; }
 strong { color: $white; }
+.alert-box { position: fixed; right: 20px; background: #597a00; border-color: #2a3802; min-width: 150px; top: 60px; @include border-radius(5px); }
 .glyph {
   &.large { font-size: 1em }
   &.medium { font-size: .7em }

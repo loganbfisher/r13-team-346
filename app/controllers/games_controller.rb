@@ -4,6 +4,14 @@ class GamesController < ApplicationController
   def index
     @games = Game.all
 
+    @games.each do |game|
+      if game.admin
+        user = User.where({'twitter_id' => game.admin}).first
+        game.author_handle = user.handle
+        game.author_image = user.image
+        game.save
+      end
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @games }
@@ -14,7 +22,9 @@ class GamesController < ApplicationController
   # GET /games/1.json
   def show
     @game = Game.find(params[:id])
-
+    if @game.admin
+      @user = User.where({ 'twitter_id' => @game.admin }).first
+    end
     @users = @game.users
     respond_to do |format|
       format.html # show.html.erb

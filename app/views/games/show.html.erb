@@ -21,7 +21,9 @@
             </div>
           </div>
           <div class="panel">
-            <p>Username</p>
+            <% if @user %>
+              <p>@<%= @user.handle %></p>
+            <% end %>
             <h2><%= @game.name %></h2>
             <p>Max number of players: <%= @game.player_max %></p>
           </div>
@@ -32,18 +34,22 @@
                 <%= @game.location %><br>
                 <%= @game.city %>, <%= @game.state %> <%= @game.zip %>
               </h4>
+              <h4><%= @game.equipment %></h4>
             </div>
           </div>
-          <%= link_to "You in?", {:action => :join}, :class => 'button large-12 columns' %>
+          <%= link_to "You in ?  Let me know.", {:action => :join}, :class => 'button large-12 columns has-tip tip-bottom', :title => 'You we will need you to sign in with twitter if you would like to join this event.', 'data-tooltip' => '' %>
         </div>
       </section>
       <section class="large-3 columns">
-        <h4>Equipment</h4>
-        <%= @game.equipment %>
-      </section>
-        <% @users.each do |user| %>
-          <%= user.image %>
+        <h4>Users joined</h4>
+        <% if @user.name.present? %>
+          <% @users.each do |user| %>
+            <%= image_tag user.image, :title => @user.name, :class => 'has-tip tip-bottom', 'data-tooltip' => '' %>
+          <% end %>
+        <% else %>
+          <em>Nobody has joined the game yet.</em>
         <% end %>
+      </section>
     </div>
   </div>
 </div>

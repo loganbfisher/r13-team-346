@@ -15,6 +15,8 @@ class Game
   field :place_id, type: Integer
   field :tweet_text, type: String
   field :admin, type: Integer
+  field :author_handle, type: String
+  field :author_image, type: String
 
   has_many :tweets
   has_and_belongs_to_many :users

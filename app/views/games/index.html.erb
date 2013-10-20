@@ -1,5 +1,5 @@
 <div class="large-4 small-6 small-centered columns large-centered">
-  <%= image_tag("logo-mascot.png") %>
+  <%= image_tag("logo-mascot.png", :class => 'has-tip tip-bottom', :title => 'The pug in pugwarriors stands for "Pick-up game"', 'data-tooltip' => '') %>
 </div>
 <div id="create-game" class="large-12 columns">
   <div class="row">
@@ -21,10 +21,22 @@
       <% @games.each do |game| %>
       <div id="game-item" class="panel callout radius large-12 columns">
         <h4><%= link_to game.name, game %></h4>
-        <p>I want to play a pick-up game of <%= game.game_type %>.  Meet me at <%= game.location %> at, <%= game.time %> on, <%= game.date %></p>
+        <p>I want to play a pick-up game of <span class="radius label"><%= game.game_type %></span> .  Meet me at <%= game.location %> at, <%= game.time %> on, <%= game.date %>.</p>
         <div class="panel clearfix">
-          <p class="radius secondary label right"><%= game.game_type %></p>
-          <%= link_to "Visit game", game, :class => 'button left secondary' %>
+          <%= link_to "Visit game", game, :class => 'button right secondary' %>
+          <% if game.author_handle.present? %>
+            <div id="author-info" class="large-4 columns">
+              <div class="large-3 columns">
+                <%= image_tag game.author_image %>
+              </div>
+              <div class="large-9 columns">
+                <sup>Posted by:</sup><br>
+                <strong>@<%= game.author_handle %></strong>
+              </div>
+            </div>
+          <% else %>
+            <em data-tooltip class="has-tip" title="You must login with twitter to claim the game."><%= image_tag 'icons/question-icon.png' %>Unknown user</em>
+          <% end %>
         </div>
       </div>
       <% end %>
