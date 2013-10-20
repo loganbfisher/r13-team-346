@@ -1,0 +1,15 @@
+every_minutes:
+  cron: "/15 * * * *"
+  class: TweetJob
+  queue: low
+  args: 
+  - 'every_minutes'
+  description: "Get tweets relating to pick up games"
+
+specific_time:
+  cron: "/10 * * * * *"
+  class: TweetGameJob
+  queue: high
+  args: 
+  - 'every_minutes'
+  description: "Get tweets having #pickupgames #pickupgamewarriors #pugwarriors"

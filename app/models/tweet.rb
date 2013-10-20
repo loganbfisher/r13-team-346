@@ -8,6 +8,8 @@ class Tweet
   field :text, type: String
   field :user_id, type: Integer
   field :game_id, type: Integer
+  field :author, type: Integer
+  field :author_handle, type: String
 
   belongs_to :game
   belongs_to :user
