@@ -15,6 +15,7 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
 
+    @users = @game.users
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @game }
@@ -41,7 +42,14 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.new(params[:game])
-    if @game[:game_type] && @game[:location]
+    if @game[:location] || @game[:city] || @game[:state]
+      location_string = @game[:location] if @game[:location]
+      location_string += @game[:city] if @game[:city]
+      location_string += @game[:state] if @game[:state]
+      coordinates = Geocoder.coordinates(location_string)
+      @game.coordinates = coordinates unless coordinates.nil?
+    end
+    if @game[:game_type]
       @game.tweet_text = 'Want to play some ' + @game[:game_type] + '? Meet me at ' + @game[:location] + ', ' + @game[:time] + ' on ' + @game[:date]
     end
     respond_to do |format|
@@ -49,10 +57,8 @@ class GamesController < ApplicationController
         if ENV["TWITTER_POSTS_ENABLED"] == "TRUE"
           twitter = getTwitterClient
           game = params[:game]
-          coordinates = Geocoder.coordinates(game[:location] + ' ' + game[:city] + ' ' + game[:state])
-          @game.coordinates = coordinates unless coordinates.nil?
-          lat = coordinates.nil? ? nil : coordinates[0]
-          long = coordinates.nil? ? nil : coordinates[1]
+          lat = @game.coordinates ? nil : coordinates[0]
+          long = game.coordinates ? nil : coordinates[1]
           text = @game.tweet_text
           tweet = twitter.update(text, {:lat => lat, :long => long})
           @game.tweet_id = tweet[:id]
@@ -100,7 +106,8 @@ class GamesController < ApplicationController
     if current_user
       @game = Game.find(params[:id])
       respond_to do |format|
-        if @game.update_attributes({:user_id => @current_user.id})
+        if @game.update_attributes({:user_ids => @game.user_ids.push(@current_user.id)})
+          @current_user.update_attributes({:game_ids => @current_user.game_ids.push(@game.id)})
           format.html { redirect_to @game, notice: 'Joined game.'}
           format.json { head :no_content}
         else

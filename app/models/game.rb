@@ -14,8 +14,7 @@ class Game
   field :coordinates, type: Array
   field :place_id, type: Integer
   field :tweet_text, type: String
-  field :user_id, type: Integer
 
-  belongs_to :user
   has_many :tweets
+  has_and_belongs_to_many :users
 end

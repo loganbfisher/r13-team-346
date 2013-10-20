@@ -3,7 +3,7 @@ class User
   include Mongoid::Timestamps
 
   has_many :authentications, :dependent => :delete
-  has_many :games
+  has_and_belongs_to_many :games
   has_many :tweets
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
