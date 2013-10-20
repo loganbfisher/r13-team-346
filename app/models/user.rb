@@ -53,6 +53,7 @@ class User
   def apply_omniauth(omniauth)
     self.handle = omniauth['info']['nickname'] if handle.blank?
     self.name = omniauth['info']['name'] if name.blank?
+    self.email = omniauth['info']['nickname'] + '@twitter.com' if email.blank?
     apply_trusted_services(omniauth) if self.new_record?
   end
 
