@@ -42,9 +42,9 @@
       </section>
       <section class="large-3 columns">
         <h4>Users joined</h4>
-        <% if @user.name.present? %>
+        <% if @users.present? && !@users.empty? %>
           <% @users.each do |user| %>
-            <%= image_tag user.image, :title => @user.name, :class => 'has-tip tip-bottom', 'data-tooltip' => '' %>
+            <%= image_tag user.image, :title => user.name, :class => 'has-tip tip-bottom', 'data-tooltip' => '' %>
           <% end %>
         <% else %>
           <em>Nobody has joined the game yet.</em>
