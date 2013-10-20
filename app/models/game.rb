@@ -13,6 +13,8 @@ class Game
   field :equipment, type: String
   field :coordinates, type: Array
   field :place_id, type: Integer
+  field :user_id, type: Integer
 
+  belongs_to :user
   has_many :tweets
 end

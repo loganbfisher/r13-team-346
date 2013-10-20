@@ -91,4 +91,22 @@ class GamesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def join
+    if current_user
+      @game = Game.find(params[:id])
+      respond_to do |format|
+        if @game.update_attributes({:user_id => @current_user.id})
+          format.html { redirect_to @game, notice: 'Joined game.'}
+          format.json { head :no_content}
+        else
+          format.html { redirect_to @game, notice: 'Unable to join game.'}
+          format.json { head :no_content}
+        end
+      end
+    else
+      session["user_return_to"] = request.url
+      redirect_to '/auth/twitter'
+    end
+  end
 end
