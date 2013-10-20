@@ -7,5 +7,8 @@ class Tweet
   field :place, type: Array
   field :text, type: String
   field :user_id, type: Integer
+  field :game_id, type: Integer
+
   belongs_to :game
+  belongs_to :user
 end
