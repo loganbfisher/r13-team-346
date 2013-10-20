@@ -3,6 +3,7 @@ class User
   include Mongoid::Timestamps
 
   has_many :authentications, :dependent => :delete
+  has_many :games
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -51,9 +52,13 @@ class User
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at
 
   def apply_omniauth(omniauth)
-    self.handle = omniauth['info']['nickname'] if handle.blank?
-    self.name = omniauth['info']['name'] if name.blank?
-    self.email = omniauth['info']['nickname'] + '@twitter.com' if email.blank?
+    info = omniauth['info']
+    self.handle = info['nickname'] if handle.blank?
+    self.name = info['name'] if name.blank?
+    self.email = info['nickname'] + '@twitter.com'
+    self.location = info['location']
+    self.image = info['image']
+    self.url = info['urls']['Twitter']
     apply_trusted_services(omniauth) if self.new_record?
   end
 
