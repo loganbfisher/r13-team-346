@@ -2,7 +2,7 @@
   .tweet-text-sections { height: 46px; line-height: 45px; text-align: center; }
   #game-item { background: $secondary-color; border: 1px solid $secondary-color;
     .button { margin: 0; }
-    .has-tip { color: $white; text-shadow: 1px 1px $secondary-color; border: 0; margin-top: 10px; float: left; }
+    .has-tip { color: $white; text-shadow: 1px 1px $secondary-color; border: 0; margin-top: 5px; float: left; }
     .panel { background: #333; border: 1px solid $secondary-color; }
     p { margin-bottom: 10px; }
     #author-info { padding: 0;

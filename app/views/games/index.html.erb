@@ -25,7 +25,7 @@
         <h4><%= link_to game.name, game %></h4>
         <p>I want to play a pick-up game of <span class="radius label"><%= game.game_type %></span> .  Meet me at <%= game.location %> at, <%= game.time %> on, <%= game.date %>.</p>
         <div class="panel clearfix">
-          <%= link_to "Visit game", game, :class => 'button right secondary' %>
+          <%= link_to "Visit game", game, :class => 'button right secondary small' %>
           <% if game.author_handle.present? %>
             <div id="author-info" class="large-4 columns">
               <div class="large-3 columns">
