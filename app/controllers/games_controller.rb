@@ -134,6 +134,13 @@ class GamesController < ApplicationController
     end
   end
 
+  def admin
+    @game = Game.find(params[:id])
+    @game.admin = current_user.twitter_id
+    @game.save
+    redirect_to games_url
+  end
+
   def filter
     @filter = params[:games_filter][:zip] ? params[:games_filter][:zip] : nil
     coordinates = Geocoder.coordinates(@filter)

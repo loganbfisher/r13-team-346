@@ -37,7 +37,11 @@
               </div>
             </div>
           <% else %>
-            <em data-tooltip class="has-tip" title="You must login with twitter to claim the game."><%= image_tag 'icons/question-icon.png' %>Unknown user</em>
+            <% if user_signed_in? %>
+              <%= link_to 'Claim this game', '/games/' + game.id + '/admin', :class => 'button small left' %>
+            <% else %>
+              <em data-tooltip class="has-tip" title="You must login with twitter to claim the game."><%= image_tag 'icons/question-icon.png' %>Unknown user</em>
+            <% end %>
           <% end %>
         </div>
       </div>

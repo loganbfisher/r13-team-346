@@ -13,6 +13,7 @@ Pugwarriors::Application.routes.draw do
   mount Foundation::Icons::Rails::Engine => '/fi'
   match '/users/signout' => 'sessions#destroy', :as => :signout
   match '/games/:id/join' => 'games#join'
+  match '/games/:id/admin' => 'games#admin'
   match '/users/:id/games' => 'users#games'
   match '/games/filter' => 'games#filter'
 
