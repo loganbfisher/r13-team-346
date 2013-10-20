@@ -2,7 +2,8 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all
+    @games = Game.all.sort_by(&:date)
+
 
     @games.each do |game|
       if game.admin
