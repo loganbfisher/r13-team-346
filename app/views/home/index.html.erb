@@ -10,14 +10,16 @@
     </div>
     <div class="large-6 columns">
       <h3>Find a game</h3>
-      <div class="row collapse">
-        <div class="small-10 columns">
-          <input type="text" placeholder="Enter your zip code">
-        </div>
-        <div class="small-2 columns">
-          <a href="#" class="button prefix">Go</a>
-        </div>
-      </div>
+      <%= form_for :games_filter, :url => '/games/filter' do |f|  %>
+          <div class="row collapse">
+            <div class="small-10 columns">
+              <%= f.text_field :zip, :placeholder => "Enter your zip code" %>
+            </div>
+            <div class="small-2 columns">
+              <%= f.submit "Go", :class => "button prefix" %>
+            </div>
+          </div>
+      <% end %>
     </div>
   </div>
 </div>

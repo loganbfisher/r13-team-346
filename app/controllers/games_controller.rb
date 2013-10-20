@@ -133,4 +133,24 @@ class GamesController < ApplicationController
       redirect_to '/auth/twitter'
     end
   end
+
+  def filter
+    @filter = params[:games_filter][:zip] ? params[:games_filter][:zip] : nil
+    coordinates = Geocoder.coordinates(@filter)
+    all_games = Game.all
+    games = []
+
+    all_games.each do |game|
+      if coordinates
+        distance = Geocoder::Calculations.distance_between(coordinates, game.coordinates)
+        if distance <= 30
+          games << game.id
+        end
+      end
+    end
+    @games = Game.all_in(:id => games)
+    @games = all_games if @filter.nil? || @filter == ''
+
+    render :index
+  end
 end
