@@ -1,29 +1,34 @@
-<%= form_for(@authentication) do |f| %>
-  <% if @authentication.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@authentication.errors.count, "error") %> prohibited this authentication from being saved:</h2>
+<div class="large-12 columns">
+  <div class="row">
+    <%= form_for(@authentication) do |f| %>
+      <% if @authentication.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@authentication.errors.count, "error") %> prohibited this authentication from being saved:</h2>
 
-      <ul>
-      <% @authentication.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <ul>
+            <% @authentication.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
+      <div class="large-12 columns">
+        <%= f.label :user_id %><br />
+        <%= f.number_field :user_id %>
+      </div>
+      <div class="large-12 columns">
+        <%= f.label :provider %><br />
+        <%= f.text_field :provider %>
+      </div>
+      <div class="large-12 columns">
+        <%= f.label :uid %><br />
+        <%= f.text_field :uid %>
+      </div>
+      <div class="large-12 columns">
+        <%= f.submit %>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :provider %><br />
-    <%= f.text_field :provider %>
-  </div>
-  <div class="field">
-    <%= f.label :uid %><br />
-    <%= f.text_field :uid %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
+

@@ -39,6 +39,9 @@
         <h4>Equipment</h4>
         <%= @game.equipment %>
       </section>
+        <% @users.each do |user| %>
+          <%= user.image %>
+        <% end %>
     </div>
   </div>
 </div>
