@@ -68,6 +68,9 @@ class GamesController < ApplicationController
     end
     respond_to do |format|
       if @game.save
+        add_user_to_game
+        @game.admin = current_user.twitter_id
+        @game.save
         if ENV["TWITTER_POSTS_ENABLED"] == "TRUE"
           twitter = getTwitterClient
           game = params[:game]
@@ -120,8 +123,7 @@ class GamesController < ApplicationController
     if current_user
       @game = Game.find(params[:id])
       respond_to do |format|
-        if @game.update_attributes({:user_ids => @game.user_ids.push(@current_user.id)})
-          @current_user.update_attributes({:game_ids => @current_user.game_ids.push(@game.id)})
+        if add_user_to_game
           format.html { redirect_to @game, notice: 'Joined game.'}
           format.json { head :no_content}
         else
@@ -132,6 +134,21 @@ class GamesController < ApplicationController
     else
       session["user_return_to"] = request.url
       redirect_to '/auth/twitter'
+    end
+  end
+
+  def leave
+    if current_user
+      @game = Game.find(params[:id])
+      respond_to do |format|
+        if remove_user_from_game
+          format.html { redirect_to @game, notice: 'Left game.'}
+          format.json { head :no_content}
+        else
+          format.html { redirect_to @game, notice: 'You have to go to the game brah.'}
+          format.json { head :no_content}
+        end
+      end
     end
   end
 
@@ -160,5 +177,14 @@ class GamesController < ApplicationController
     @games = all_games if @filter.nil? || @filter == ''
 
     render :index
+  end
+
+  private
+  def add_user_to_game
+    @game.users.push(@current_user)
+  end
+
+  def remove_user_from_game
+    @game.users.delete(@current_user)
   end
 end
