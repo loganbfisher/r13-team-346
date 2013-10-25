@@ -8,23 +8,25 @@
       <!-- Right Nav Section -->
       <ul class="right">
         <li>
+          <%= link_to 'Create a game', new_game_path %>
+        </li>
+        <li>
           <%= link_to 'Find a game', games_path %>
         </li>
-        <% if user_signed_in? %>
-          <li>
-            <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
-          </li>
+
+        <% if !user_signed_in? %>
+          <li><%= link_to 'Sign in with twitter', '/auth/twitter' %></li>
         <% end %>
+
         <% if user_signed_in? %>
-          <li>
-            <%= link_to 'Edit account', edit_user_registration_path %>
-          </li>
-        <% end %>
-        <li>
-          <% if !user_signed_in? %>
-            <%= link_to 'Sign in with twitter', '/auth/twitter' %>
-          <% end %>
+        <li class="has-dropdown"><%= image_tag current_user.image, :title => current_user.name, :class => 'mini_user_profile_image' %>
+
+          <ul class="dropdown">
+            <li><%= link_to 'Edit account', edit_user_registration_path %></li>
+            <li><%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %></li>
+          </ul>
         </li>
+        <% end %>
       </ul>
     </section>
   </ul>
