@@ -68,9 +68,11 @@ class GamesController < ApplicationController
     end
     respond_to do |format|
       if @game.save
-        add_user_to_game
-        @game.admin = current_user.twitter_id
-        @game.save
+        if current_user
+          add_user_to_game
+          @game.admin = current_user.twitter_id
+          @game.save
+        end
         if ENV["TWITTER_POSTS_ENABLED"] == "TRUE"
           twitter = getTwitterClient
           game = params[:game]
@@ -155,6 +157,7 @@ class GamesController < ApplicationController
   def admin
     @game = Game.find(params[:id])
     @game.admin = current_user.twitter_id
+    add_user_to_game
     @game.save
     redirect_to games_url
   end
