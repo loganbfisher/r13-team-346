@@ -4,8 +4,8 @@ class GamesController < ApplicationController
   def index
     @games = Game.all.sort_by(&:date)
 
-
     @games.each do |game|
+
       if game.admin
         user = User.where({'twitter_id' => game.admin}).first
         game.author_handle = user.handle
