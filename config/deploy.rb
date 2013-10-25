@@ -3,7 +3,7 @@ require 'capistrano-unicorn'
 require 'rvm/capistrano'
 
 GITHUB_REPOSITORY_NAME = 'r13-team-346'
-LINODE_SERVER_HOSTNAME = 'pugwarriors'
+LINODE_SERVER_HOSTNAME = 'www.pugwarriors.com'
 
 set :bundle_flags,               "--deployment"
 set :application,                "pugwarriors"
