@@ -18,7 +18,7 @@
           </div>
       <% end %>
       <div class="left">
-        <%= link_to 'New Game', new_game_path, :class => 'button' %>
+        <%= link_to 'View pick-up games on twitter in your area.', '/tweets', :class => 'button' %>
       </div>
       <% @games.each do |game| %>
       <div id="game-item" class="panel callout radius large-12 columns">
@@ -40,7 +40,10 @@
             <% if user_signed_in? %>
               <%= link_to 'Claim this game', '/games/' + game.id + '/admin', :class => 'button small left' %>
             <% else %>
-              <em data-tooltip class="has-tip" title="You must login with twitter to claim the game."><%= image_tag 'icons/question-icon.png' %>Unknown user</em>
+              <em data-tooltip class="has-tip" title="You must login with twitter to claim the game.">
+                <%= image_tag 'icons/question-icon.png' %>
+                <%= link_to 'Unknown user', '/auth/twitter', :class => 'has-tip', 'data-tooltip' => '', :title => 'You must login with twitter to claim this game as yours.' %>
+              </em>
             <% end %>
           <% end %>
         </div>

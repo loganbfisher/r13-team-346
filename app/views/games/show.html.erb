@@ -50,7 +50,16 @@
               </div>
             <% end %>
           </div>
-          <%= link_to "You in ?  Let me know.", {:action => :join}, :class => 'button large-12 columns' %>
+          <% if user_signed_in? %>
+            <% if @game.users.where(:_id => current_user.id).first %>
+              <%= link_to "I'm not going anymore..", {:action => :leave}, :class => 'button large-12 columns' %>
+            <% else %>
+              <%= link_to "You in?  Let me know.", {:action => :join}, :class => 'button large-12 columns' %>
+            <% end %>
+          <% else %>
+            <%= link_to "You in?  Sign in with twitter to join", '/auth/twitter', :class => 'button large-12 columns' %>
+          <% end %>
+
         </div>
       </section>
       <section class="row">
