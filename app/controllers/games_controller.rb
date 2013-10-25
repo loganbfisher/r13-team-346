@@ -53,10 +53,9 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.new(params[:game])
-    if @game[:location] || @game[:city] || @game[:state]
-      location_string = @game[:location] if @game[:location]
-      location_string += @game[:city] if @game[:city]
-      location_string += @game[:state] if @game[:state]
+    location_string = ''
+    if @game[:location]
+      location_string = @game[:zip] if @game[:zip]
       coordinates = Geocoder.coordinates(location_string)
       @game.coordinates = coordinates unless coordinates.nil?
     end
@@ -176,7 +175,7 @@ class GamesController < ApplicationController
         end
       end
     end
-    @games = Game.all_in(:id => games)
+    @games = Game.any_in(:_id => games)
     @games = all_games if @filter.nil? || @filter == ''
 
     render :index
