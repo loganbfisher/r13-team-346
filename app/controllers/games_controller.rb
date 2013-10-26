@@ -126,10 +126,12 @@ class GamesController < ApplicationController
       respond_to do |format|
         if add_user_to_game
           format.html { redirect_to @game, notice: 'Joined game.'}
-          format.json { head :no_content}
+          format.json { render json: @game }
+          format.js
         else
           format.html { redirect_to @game, notice: 'Unable to join game.'}
-          format.json { head :no_content}
+          format.json { render json: @game }
+          format.js
         end
       end
     else
@@ -144,10 +146,12 @@ class GamesController < ApplicationController
       respond_to do |format|
         if remove_user_from_game
           format.html { redirect_to @game, notice: 'Left game.'}
-          format.json { head :no_content}
+          format.json { render json: @game }
+          format.js
         else
           format.html { redirect_to @game, notice: 'You have to go to the game brah.'}
-          format.json { head :no_content}
+          format.json { render json: @game}
+          format.js
         end
       end
     end

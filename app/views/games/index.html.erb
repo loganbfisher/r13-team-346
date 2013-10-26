@@ -46,6 +46,22 @@
               </em>
             <% end %>
           <% end %>
+          <% if user_signed_in? %>
+              <div id="join-leave-<%= game.id.to_s %>">
+                  <% if game.users.present? && game.users.where(:_id => current_user.id).first %>
+                      <%= link_to "I'm not going anymore..", '/games/' + game.id + '/leave', {:class => 'button large-12 columns', :remote => true} %>
+                  <% else %>
+                      <%= link_to "You in?  Let me know.", '/games/' + game.id + '/join', {:class => 'button large-12 columns', :remote => true} %>
+                  <% end %>
+              </div>
+          <% else %>
+              <%= link_to "You in?  Sign in with twitter to join", '/auth/twitter', :class => 'button large-12 columns' %>
+          <% end %>
+          <div id="member-count-<%= game.id.to_s %>">
+            <% if game.users.present? %>
+              <%= game.users.count %>
+            <% end %>
+          </div>
         </div>
       </div>
       <% end %>
