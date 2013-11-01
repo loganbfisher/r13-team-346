@@ -4,8 +4,9 @@
 <div id="create-game" class="large-12 columns">
   <div class="row">
     <div class="large-9 columns large-centered">
-      <h1 class="title">Find games near you</h1>
-      <%= form_for :games_filter, :url => '/games/filter' do |f|  %>
+      <div class="row">
+        <h1 class="title">Find games near you</h1>
+        <%= form_for :games_filter, :url => '/games/filter' do |f|  %>
           <div class="right">
             <div class="row collapse">
               <div class="small-8 columns">
@@ -16,54 +17,85 @@
               </div>
             </div>
           </div>
-      <% end %>
-      <div class="left">
-        <%= link_to 'View pick-up games on twitter in your area.', '/tweets', :class => 'button' %>
-      </div>
-      <% @games.each do |game| %>
-      <div id="game-item" class="panel callout radius large-12 columns">
-        <h4><%= link_to game.name, game %></h4>
-        <p>I want to play a pick-up game of <span class="radius label"><%= game.game_type %></span> .  Meet me at <%= game.location %> at, <%= game.time %> on, <%= game.date %>.</p>
-        <div class="panel clearfix">
-          <%= link_to "Visit game", game, :class => 'button right secondary small' %>
-          <% if game.author_handle.present? %>
-            <div id="author-info" class="large-4 columns">
-              <div class="large-3 columns">
-                <%= image_tag game.author_image %>
-              </div>
-              <div class="large-9 columns">
-                <sup>Posted by:</sup><br>
-                <strong>@<%= game.author_handle %></strong>
-              </div>
-            </div>
-          <% else %>
-            <% if user_signed_in? %>
-              <%= link_to 'Claim this game', '/games/' + game.id + '/admin', :class => 'button small left' %>
-            <% else %>
-              <em data-tooltip class="has-tip" title="You must login with twitter to claim the game.">
-                <%= image_tag 'icons/question-icon.png' %>
-                <%= link_to 'Unknown user', '/auth/twitter', :class => 'has-tip', 'data-tooltip' => '', :title => 'You must login with twitter to claim this game as yours.' %>
-              </em>
-            <% end %>
-          <% end %>
-          <% if user_signed_in? %>
-              <div id="join-leave-<%= game.id.to_s %>">
-                  <% if game.users.present? && game.users.where(:_id => current_user.id).first %>
-                      <%= link_to "I'm not going anymore..", '/games/' + game.id + '/leave', {:class => 'button large-12 columns', :remote => true} %>
-                  <% else %>
-                      <%= link_to "You in?  Let me know.", '/games/' + game.id + '/join', {:class => 'button large-12 columns', :remote => true} %>
-                  <% end %>
-              </div>
-          <% else %>
-              <%= link_to "You in?  Sign in with twitter to join", '/auth/twitter', :class => 'button large-12 columns' %>
-          <% end %>
-          <div id="member-count-<%= game.id.to_s %>">
-            <% if game.users.present? %>
-              <%= game.users.count %>
-            <% end %>
-          </div>
+        <% end %>
+        <div class="left">
+          <%= link_to 'View pick-up games on twitter in your area.', '/tweets', :class => 'button' %>
         </div>
       </div>
+
+      <% @games.each do |game| %>
+        <div class="row">
+          <div class="game-name-wrapper large-12 columns">
+            <% if game.author_handle.present? %>
+              <span class="left"><%= image_tag game.author_image %></span>
+              <h4><%= link_to game.name, game %></h4>
+            <% else %>
+              <% if user_signed_in? %>
+                <%= link_to 'Claim this game', '/games/' + game.id + '/admin', :class => 'button small left' %>
+              <% else %>
+                <em data-tooltip class="has-tip" title="You must login with twitter to claim the game.">
+                  <%= image_tag 'icons/question-icon.png' %>
+                  <%= link_to 'Unknown user', '/auth/twitter', :class => 'has-tip', 'data-tooltip' => '', :title => 'You must login with twitter to claim this game as yours.' %>
+                </em>
+              <% end %>
+            <% end %>
+          </div>
+
+          <div class="large-3 small-12 columns no-padding">
+            <div class="time-and-location-wrapper small-12 columns">
+              <a class="time-and-location">
+                <div class="time-wrapper">
+                  <%= game.time %>
+                </div>
+                <div class="location-wrapper">
+                  <p><%= game.location %></p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="large-9 no-padding small-12 columns">
+
+
+            <div class="join-wrapper large-3 small-6 columns">
+              <% if user_signed_in? %>
+                <div id="join-leave-<%= game.id.to_s %>">
+                  <% if game.users.present? && game.users.where(:_id => current_user.id).first %>
+                    <%= link_to "Leave Game", '/games/' + game.id + '/leave', {:remote => true} %>
+                  <% else %>
+                    <%= link_to "Join Game", '/games/' + game.id + '/join', {:remote => true} %>
+                  <% end %>
+                </div>
+              <% else %>
+                <%= link_to "Sign-in to join", '/auth/twitter' %>
+              <% end %>
+            </div>
+
+            <div class="member-count-wrapper large-3 small-6 columns">
+              <div id="member-count-<%= game.id.to_s %>">
+                <% if game.users.present? %>
+                  <a href="#" class="user-count">
+                    <%= game.users.count %>
+                    <p>Players</p>
+                  </a>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="game-date-wrapper large-3 small-6 columns">
+              <a href="">
+                <p><%= game.date.strftime('%B') %></p>
+                <%= game.date.strftime('%d') %>
+              </a>
+            </div>
+
+            <div class="visit-game-wrapper large-3 small-6 columns">
+              <%= link_to "Visit game", game %>
+            </div>
+          </div>
+
+
+        </div>
       <% end %>
     </div>
   </div>

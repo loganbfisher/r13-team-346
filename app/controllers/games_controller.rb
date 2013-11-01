@@ -3,9 +3,7 @@ class GamesController < ApplicationController
   # GET /games.json
   def index
     @games = Game.all.sort_by(&:date)
-
     @games.each do |game|
-
       if game.admin
         user = User.where({'twitter_id' => game.admin}).first
         game.author_handle = user.handle
@@ -52,7 +50,9 @@ class GamesController < ApplicationController
   # POST /games
   # POST /games.json
   def create
+    date = params[:game][:date].split('/')
     @game = Game.new(params[:game])
+    @game.date = date[2] + '-' + date[0] + '-' + date[1]
     location_string = ''
     if @game[:location]
       location_string = @game[:zip] if @game[:zip]
@@ -60,7 +60,7 @@ class GamesController < ApplicationController
       @game.coordinates = coordinates unless coordinates.nil?
     end
     if @game[:game_type]
-      @game.tweet_text = 'Want to play some ' + @game[:game_type] + '? Meet me at ' + @game[:location] + ', ' + @game[:time] + ' on ' + @game[:date]
+      @game.tweet_text = 'Want to play some ' + @game[:game_type] + '? Meet me at ' + @game[:location] + ', ' + @game[:time] + ' on ' + @game[:date].to_s
     end
     if current_user
       @game.admin = @current_user.twitter_id
