@@ -1,2 +1,2 @@
-$('#member-count-<%= @game.id.to_s %>').html('<%= @game.users.count %>');
-$('#join-leave-<%= @game.id.to_s %>').html('<%= escape_javascript(link_to "I'm not going anymore..", "/games/" + @game.id + "/leave", {:class => "button large-12 columns", :remote => true}) %>');
+$('#member-count-<%= @game.id.to_s %>').html('<a href="#" class="user-count"><%= @game.users.count %><p>Players</p></a>');
+$('#join-leave-<%= @game.id.to_s %>').html('<%= escape_javascript(link_to "Leave Game", "/games/" + @game.id + "/leave", {:remote => true, :class => 'leave'}) %>');

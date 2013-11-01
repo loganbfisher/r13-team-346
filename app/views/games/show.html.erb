@@ -41,6 +41,16 @@
                 </div>
               </div>
             <% end %>
+            <div class="large-6 columns">
+              <div class="panel">
+                <h3>Gameday Weather:</h3>
+                <strong>Chance of rain</strong>
+                <h3><%= @weather['trip']['chance_of']['chanceofrainday']['percentage'] %>%</h3>
+                <h3><%= @weather['trip']['cloud_cover']['cond'] %></h3>
+                <h3>High <%= @weather['trip']['temp_high']['avg']['F'] %></h3>
+                <h3>Low <%= @weather['trip']['temp_low']['avg']['F'] %></h3>
+              </div>
+            </div>
             <% if @game.equipment.present? %>
               <div class="large-6 columns">
                 <div class="panel">
@@ -50,6 +60,7 @@
               </div>
             <% end %>
           </div>
+
           <% if user_signed_in? %>
             <% if @game.users.where(:_id => current_user.id).first %>
               <%= link_to "I'm not going anymore..", {:action => :leave}, :class => 'button large-12 columns' %>

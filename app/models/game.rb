@@ -7,7 +7,7 @@ class Game
   field :city, type: String
   field :state, type: String
   field :zip, type: String
-  field :date, type: String
+  field :date, type: Date
   field :time, type: String
   field :player_max, type: String
   field :equipment, type: String
@@ -20,4 +20,6 @@ class Game
 
   has_many :tweets
   has_and_belongs_to_many :users
+
+  validates_presence_of :name, :zip, :city, :state, :date, :game_type, :time
 end
