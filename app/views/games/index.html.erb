@@ -46,9 +46,9 @@
               <% if user_signed_in? %>
                 <div id="join-leave-<%= game.id.to_s %>">
                   <% if game.users.present? && game.users.where(:_id => current_user.id).first %>
-                    <%= link_to "Leave Game", '/games/' + game.id + '/leave', {:remote => true} %>
+                    <%= link_to "Leave Game", '/games/' + game.id + '/leave', {:remote => true, :class => 'leave'} %>
                   <% else %>
-                    <%= link_to "Join Game", '/games/' + game.id + '/join', {:remote => true} %>
+                    <%= link_to "Join Game", '/games/' + game.id + '/join', {:remote => true, :class => 'join'} %>
                   <% end %>
                 </div>
               <% else %>
@@ -72,6 +72,11 @@
                 <% if game.users.present? %>
                   <a href="#" class="user-count">
                     <%= game.users.count %>
+                    <p>Players</p>
+                  </a>
+                <% else %>
+                  <a href="#" class="user-count">
+                    0
                     <p>Players</p>
                   </a>
                 <% end %>

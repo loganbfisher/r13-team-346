@@ -2,12 +2,19 @@
   #additional-information { display: none; }
   .tweet-text-sections { height: 46px; line-height: 45px; text-align: center; }
 
-    .game-name-wrapper {  }
+    .game-name-wrapper { padding: 5px;
+      span { margin-right: 10px; }
+      h4 { margin: 0; background: $secondary-color; @include clearfix;
+        a { color: $white; margin-top: 8px; float: left; }
+      }
+    }
     .visit-game-wrapper { padding: 5px;
       a { font-family: "Raleway"; font-weight: 100; float: left; height: 103px; width: 100%; color: #fff; background: #333 url(image-path('icons/view-icon.png')) no-repeat 50% 15%; text-transform: uppercase; text-align: center; line-height: 170px; }
     }
     .join-wrapper { padding: 5px;
-      a { font-family: "Raleway"; font-weight: 100; float: left; height: 103px; width: 100%; color: #fff; background: #597a00 url(image-path('icons/checkmark-icon.png')) no-repeat 50% 15%; text-transform: uppercase; text-align: center; line-height: 170px; }
+      a { font-family: "Raleway"; font-weight: 100; float: left; height: 103px; width: 100%; color: #fff; text-transform: uppercase; text-align: center; line-height: 170px;}
+      a.join { background: #597a00 url(image-path('icons/checkmark-icon.png')) no-repeat 50% 15%; }
+      a.leave { background: #cc0000 url(image-path('icons/leave-icon.png')) no-repeat 50% 15%; }
     }
     .member-count-wrapper { padding: 5px;
       a.user-count { background: $primary-color; font-family: "Raleway"; font-weight: 100; float: left; height: 103px; width: 100%; color: #fff; text-transform: uppercase; text-align: center; font-size: 70px;
