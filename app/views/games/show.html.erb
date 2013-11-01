@@ -38,6 +38,8 @@
                   <h3>Location:</h3>
                   <p><%= @game.location %></p>
                   <p><%= @game.city %>, <%= @game.state %> <%= @game.zip %></p>
+                  <strong>Current weather conditions</strong>
+                  <h3><%= @weather %></h3>
                 </div>
               </div>
             <% end %>
@@ -50,6 +52,7 @@
               </div>
             <% end %>
           </div>
+
           <% if user_signed_in? %>
             <% if @game.users.where(:_id => current_user.id).first %>
               <%= link_to "I'm not going anymore..", {:action => :leave}, :class => 'button large-12 columns' %>

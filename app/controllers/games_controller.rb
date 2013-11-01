@@ -23,6 +23,8 @@ class GamesController < ApplicationController
   # GET /games/1.json
   def show
     @game = Game.find(params[:id])
+    w_api = Wunderground.new('fdb34ff48699837d')
+    @weather = w_api.forecast_for(@game.zip)
     if @game.admin
       @user = User.where({ 'twitter_id' => @game.admin }).first
     end

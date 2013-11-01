@@ -23,8 +23,11 @@
       <% @games.each do |game| %>
       <div id="game-item" class="panel callout radius large-12 columns">
         <h4><%= link_to game.name, game %></h4>
-        <p>I want to play a pick-up game of <span class="radius label"><%= game.game_type %></span> .  Meet me at <%= game.location %> at, <%= game.time %> on, <%= game.date %>.</p>
+        <p>Location: <%= game.location %></p>
         <div class="panel clearfix">
+          <span>Players joined: <%= game.users.count %></span>
+          <span>Game time: <%= game.time %></span>
+          <span>Date: <%= game.date %></span>
           <%= link_to "Visit game", game, :class => 'button right secondary small' %>
           <% if game.author_handle.present? %>
             <div id="author-info" class="large-4 columns">
