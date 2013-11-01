@@ -1,0 +1,2 @@
+$('#member-count-<%= @game.id.to_s %>').html('<%= @game.users.count if @game.users.present? %>');
+$('#join-leave-<%= @game.id.to_s %>').html('<%= escape_javascript(link_to "Join Game", '/games/' + @game.id + '/join', {:remote => true}) %>');

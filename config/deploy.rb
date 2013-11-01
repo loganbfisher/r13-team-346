@@ -3,7 +3,7 @@ require 'capistrano-unicorn'
 require 'rvm/capistrano'
 
 GITHUB_REPOSITORY_NAME = 'r13-team-346'
-LINODE_SERVER_HOSTNAME = '173.255.246.116'
+LINODE_SERVER_HOSTNAME = 'www.pugwarriors.com'
 
 set :bundle_flags,               "--deployment"
 set :application,                "pugwarriors"
@@ -19,7 +19,7 @@ set :admin_runner,               "www-data"
 ssh_options[:keys] = ["~/.ssh/id_rsa"]
  
 set :scm,        :git
-set :repository, "git@github.com:railsrumble/#{GITHUB_REPOSITORY_NAME}.git"
+set :repository, "git@github.com:arturo-c/#{GITHUB_REPOSITORY_NAME}.git"
 set :branch,     "master"
  
 # Roles

@@ -3,8 +3,6 @@ class GamesController < ApplicationController
   # GET /games.json
   def index
     @games = Game.all.sort_by(&:date)
-
-
     @games.each do |game|
       if game.admin
         user = User.where({'twitter_id' => game.admin}).first
@@ -24,7 +22,7 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     w_api = Wunderground.new('fdb34ff48699837d')
-    @weather = w_api.forecast_for(@game.zip)
+    @weather = w_api.planner_for(@game.date, @game.date, @game.zip)
     if @game.admin
       @user = User.where({ 'twitter_id' => @game.admin }).first
     end
@@ -54,16 +52,17 @@ class GamesController < ApplicationController
   # POST /games
   # POST /games.json
   def create
+    date = params[:game][:date].split('/')
     @game = Game.new(params[:game])
-    if @game[:location] || @game[:city] || @game[:state]
-      location_string = @game[:location] if @game[:location]
-      location_string += @game[:city] if @game[:city]
-      location_string += @game[:state] if @game[:state]
+    @game.date = date[2] + '-' + date[0] + '-' + date[1]
+    location_string = ''
+    if @game[:location]
+      location_string = @game[:zip] if @game[:zip]
       coordinates = Geocoder.coordinates(location_string)
       @game.coordinates = coordinates unless coordinates.nil?
     end
     if @game[:game_type]
-      @game.tweet_text = 'Want to play some ' + @game[:game_type] + '? Meet me at ' + @game[:location] + ', ' + @game[:time] + ' on ' + @game[:date]
+      @game.tweet_text = 'Want to play some ' + @game[:game_type] + '? Meet me at ' + @game[:location] + ', ' + @game[:time] + ' on ' + @game[:date].to_s
     end
     if current_user
       @game.admin = @current_user.twitter_id
@@ -129,10 +128,12 @@ class GamesController < ApplicationController
       respond_to do |format|
         if add_user_to_game
           format.html { redirect_to @game, notice: 'Joined game.'}
-          format.json { head :no_content}
+          format.json { render json: @game }
+          format.js
         else
           format.html { redirect_to @game, notice: 'Unable to join game.'}
-          format.json { head :no_content}
+          format.json { render json: @game }
+          format.js
         end
       end
     else
@@ -147,10 +148,12 @@ class GamesController < ApplicationController
       respond_to do |format|
         if remove_user_from_game
           format.html { redirect_to @game, notice: 'Left game.'}
-          format.json { head :no_content}
+          format.json { render json: @game }
+          format.js
         else
           format.html { redirect_to @game, notice: 'You have to go to the game brah.'}
-          format.json { head :no_content}
+          format.json { render json: @game}
+          format.js
         end
       end
     end
@@ -178,7 +181,7 @@ class GamesController < ApplicationController
         end
       end
     end
-    @games = Game.all_in(:id => games)
+    @games = Game.any_in(:_id => games)
     @games = all_games if @filter.nil? || @filter == ''
 
     render :index
