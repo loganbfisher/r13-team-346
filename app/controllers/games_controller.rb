@@ -14,6 +14,7 @@ class GamesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @games }
+      format.js { render :js => @games }
     end
   end
 
@@ -23,6 +24,10 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     w_api = Wunderground.new('fdb34ff48699837d')
     @weather = w_api.planner_for(@game.date, @game.date, @game.zip)
+    # Variables for use inside of application.js
+    gon.lat = @game.coordinates[0]
+    gon.long = @game.coordinates[1]
+    gon.location_marker = '../assets/icons/location-marker.png'
     if @game.admin
       @user = User.where({ 'twitter_id' => @game.admin }).first
     end
@@ -57,7 +62,7 @@ class GamesController < ApplicationController
     @game.date = date[2] + '-' + date[0] + '-' + date[1]
     location_string = ''
     if @game[:location]
-      location_string = @game[:zip] if @game[:zip]
+      location_string = @game[:location] if @game[:location]
       coordinates = Geocoder.coordinates(location_string)
       @game.coordinates = coordinates unless coordinates.nil?
     end

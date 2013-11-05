@@ -1,6 +1,3 @@
-<div class="large-4 small-6 small-centered columns large-centered">
-  <%= image_tag("logo-mascot.png", :class => 'has-tip tip-bottom', :title => 'The pug in pugwarriors stands for "Pick-up game"', 'data-tooltip' => '') %>
-</div>
 <div id="create-game" class="large-12 columns">
   <div class="row">
     <div class="large-9 columns large-centered">
@@ -24,7 +21,7 @@
       </div>
 
       <% @games.each do |game| %>
-        <div class="row">
+        <div class="row game">
           <div class="game-name-wrapper large-12 columns">
             <% if game.author_handle.present? %>
               <span class="left"><%= image_tag game.author_image %></span>
@@ -90,8 +87,8 @@
               </a>
             </div>
           </div>
-
         </div>
+
       <% end %>
     </div>
   </div>
