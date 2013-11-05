@@ -39,3 +39,85 @@ $('.back-button').click(function(){
     return false;
 });
 
+
+
+$(document).ready(function(){
+    var lat =  gon.lat;
+    var long = gon.long;
+    var myLatlng = new google.maps.LatLng(lat,long);
+
+    // Create an array of styles.
+    var styles = [
+        {
+            stylers: [
+                { hue: '#064472' },
+                { visibility: 'simplified' },
+                { gamma: 1.5 },
+                { weight: .3 }
+            ]
+        },
+        {
+            elementType: 'labels',
+            stylers: [
+                { visibility: 'on' },
+                {  color: '#ffffff' }
+            ]
+        },
+        {
+            featureType: 'water',
+            stylers: [
+                { color: '#064472' }
+            ]
+        } ,
+        {
+            featureType: 'landscape',
+            stylers: [
+                { color: '#000000' }
+            ]
+        },
+        {
+            featureType: 'road',
+            stylers: [
+                { color: '#064472' }
+            ]
+        },
+        {
+            featureType: 'poi',
+            stylers: [
+                { color: '#333333' }
+            ]
+        }
+    ];
+
+    // Create a new StyledMapType object, passing it the array of styles,
+    // as well as the name to be displayed on the map type control.
+    var styledMap = new google.maps.StyledMapType(styles,
+        {name: "Styled Map"});
+
+    var mapIcon = gon.location_marker
+
+    // Create a map object, and include the MapTypeId to add
+    // to the map type control.
+    var mapOptions = {
+        zoom: 16,
+        center: myLatlng,
+        scrollwheel: false,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    }
+    var map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        icon: mapIcon,
+        title: 'Hello World!'
+    });
+
+    //Associate the styled map with the MapTypeId and set it to display.
+    map.mapTypes.set('map_style', styledMap);
+    map.setMapTypeId('map_style');
+
+    var windowHeight = $(window).height();
+    $('#show-game #map-canvas').height(windowHeight);
+});

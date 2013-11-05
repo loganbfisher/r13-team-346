@@ -46,6 +46,11 @@ strong { color: $white; }
   &.medium { font-size: .7em }
   &.small { font-size: .5em }
 }
+.name {
+  h1 {
+    a { padding: 0 !important; }
+  }
+}
 .clearfix { @include clearfix(); }
 h1.title { text-align: center; }
 footer { margin-top: 20px; margin-bottom: 20px; }
@@ -56,3 +61,4 @@ footer { margin-top: 20px; margin-bottom: 20px; }
 }
 
 .top-bar { border-bottom: #333; }
+.lat, .long { display: none; }

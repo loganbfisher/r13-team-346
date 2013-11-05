@@ -14,9 +14,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
-
+  <%= include_gon %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "vendor/custom.modernizr" %>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
   <%= google_webfonts_link_tag "Raleway" %>
   <%= csrf_meta_tags %>
 </head>
@@ -26,17 +27,14 @@
     <%= render 'layouts/navigation' %>
     <%= render 'layouts/messages' %>
   </header>
-  <div id="container" class="row">
+  <div id="container">
     <div id="main" role="main">
       <%= yield %>
     </div>
-    <footer class="clearfix">
-      <div class="small-4 large-2 columns small-centered">
-        <%= link_to image_tag("rails-rumble-logo.png"), 'http://www.railsrumble.com' %>
-      </div>
-    </footer>
   </div> <!--! end of #container -->
   <%= javascript_include_tag "application" %>
+
+
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

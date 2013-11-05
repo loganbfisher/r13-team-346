@@ -1,94 +1,75 @@
-<div class="large-4 small-6 small-centered columns large-centered">
-  <%= image_tag("logo-mascot.png", :class => 'has-tip tip-bottom', :title => 'The pug in pugwarriors stands for "Pick-up game"', 'data-tooltip' => '') %>
-</div>
-<div id="game-page" class="large-12 columns">
-  <div class="row">
-    <div class="large-9 columns large-centered">
-      <section class="large-12 columns">
-        <div class="row">
+<div id="show-game">
+  <div class="game clearfix">
+    <div class="game-name-wrapper large-12 columns">
+      <% if @game.author_handle.present? %>
+        <span class="left"><%= image_tag @game.author_image %></span>
+        <h4><%= @game.name %></h4>
+      <% else %>
+        <% if user_signed_in? %>
+          <%= link_to 'Claim this game', '/games/' + @game.id + '/admin', :class => 'button small left' %>
+        <% else %>
+          <em data-tooltip class="has-tip" title="You must login with twitter to claim the game.">
+            <%= image_tag 'icons/question-icon.png' %>
+            <%= link_to 'Unknown user', '/auth/twitter', :class => 'has-tip', 'data-tooltip' => '', :title => 'You must login with twitter to claim this game as yours.' %>
+          </em>
+        <% end %>
+      <% end %>
+    </div>
 
-          <div class="row">
-            <div class="small-8 columns right">
-              <h4 class="right"><%= @game.game_type %> at <span class="handle"><%= @game.time %></span> on <span class="handle"><%= @game.date %></span></h4>
-            </div>
-            <div class="small-4 columns">
-              <div class="button-bar left">
-                <ul class="button-group">
-                  <li><%= link_to 'Find another game', games_path, :class => 'small button' %></li>
-                  <% if !@game.admin || (@game.admin && current_user && @game.admin == current_user.twitter_id)%>
-                    <li><%= link_to 'Edit', edit_game_path(@game), :class => 'small button' %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="panel clearfix">
-            <% if @user %>
-              <p class="handle">@<%= @user.handle %></p>
-            <% end %>
-            <h2><%= @game.name %></h2>
-            <% if @game.player_max.present? %>
-              <p class="right">Max number of players: <span class="handle"><%= @game.player_max %></span></p>
-            <% end %>
-          </div>
-          <div class="row">
-            <% if @game.location.present? %>
-              <div class="large-6 columns">
-                <div class="panel">
-                  <h3>Location:</h3>
-                  <p><%= @game.location %></p>
-                  <p><%= @game.city %>, <%= @game.state %> <%= @game.zip %></p>
-                </div>
-              </div>
-            <% end %>
-            <div class="large-6 columns">
-              <div class="panel">
-                <h3>Gameday Weather:</h3>
-                <strong>Chance of rain</strong>
-                <h3><%= @weather['trip']['chance_of']['chanceofrainday']['percentage'] %>%</h3>
-                <h3><%= @weather['trip']['cloud_cover']['cond'] %></h3>
-                <h3>High <%= @weather['trip']['temp_high']['avg']['F'] %></h3>
-                <h3>Low <%= @weather['trip']['temp_low']['avg']['F'] %></h3>
-              </div>
-            </div>
-            <% if @game.equipment.present? %>
-              <div class="large-6 columns">
-                <div class="panel">
-                  <h3>Equipment:</h3>
-                  <p><%= @game.equipment %></p>
-                </div>
-              </div>
-            <% end %>
-          </div>
+    <div id="map-canvas"></div>
 
-          <% if user_signed_in? %>
-            <% if @game.users.where(:_id => current_user.id).first %>
-              <%= link_to "I'm not going anymore..", {:action => :leave}, :class => 'button large-12 columns' %>
+
+    <div id="info-panels" class="large-12 no-padding small-12 columns">
+      <div class="join-wrapper large-3 small-6 columns">
+        <% if user_signed_in? %>
+          <div id="join-leave-<%= @game.id.to_s %>">
+            <% if @game.users.present? && @game.users.where(:_id => current_user.id).first %>
+              <%= link_to "Leave Game", '/games/' + @game.id + '/leave', {:remote => true, :class => 'leave'} %>
             <% else %>
-              <%= link_to "You in?  Let me know.", {:action => :join}, :class => 'button large-12 columns' %>
+              <%= link_to "Join Game", '/games/' + @game.id + '/join', {:remote => true, :class => 'join'} %>
             <% end %>
+          </div>
+        <% else %>
+          <%= link_to "Sign-in to join", '/auth/twitter' %>
+        <% end %>
+      </div>
+
+      <div class="time-and-location-wrapper large-3 small-6 columns">
+        <a class="time-and-location">
+          <div class="time-wrapper">
+            <%= @game.time %>
+          </div>
+          <div class="location-wrapper">
+            <p><%= @game.location %></p>
+          </div>
+        </a>
+      </div>
+
+      <div class="member-count-wrapper large-3 small-6 columns">
+        <div id="member-count-<%= @game.id.to_s %>">
+          <% if @game.users.present? %>
+            <a href="#" class="user-count">
+              <%= @game.users.count %>
+              <p>Players</p>
+            </a>
           <% else %>
-            <%= link_to "You in?  Sign in with twitter to join", '/auth/twitter', :class => 'button large-12 columns' %>
+            <a href="#" class="user-count">
+              0
+              <p>Players</p>
+            </a>
           <% end %>
+        </div>
+      </div>
 
-        </div>
-      </section>
-      <section class="row">
-        <div class="large-12 columns">
-          <div class="panel">
-            <h3>Users joined:</h3>
-            <% if @users.present? && !@users.empty? %>
-              <% @users.each do |user| %>
-                <%= image_tag user.image, :title => user.name, :class => 'has-tip tip-bottom', 'data-tooltip' => '' %>
-              <% end %>
-            <% else %>
-              <em>Nobody has joined the game yet.</em>
-            <% end %>
-          </div>
-        </div>
-      </section>
+      <div class="game-date-wrapper large-3 small-6 columns">
+        <a href="">
+          <p><%= @game.date.strftime('%B') %></p>
+          <%= @game.date.strftime('%d') %>
+        </a>
+      </div>
     </div>
   </div>
 </div>
+
 
 
