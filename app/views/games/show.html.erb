@@ -3,7 +3,14 @@
     <div class="game-name-wrapper large-12 columns">
       <% if @game.author_handle.present? %>
         <span class="left"><%= image_tag @game.author_image %></span>
-        <h4><%= @game.name %></h4>
+        <h4>
+          <%= @game.name %>
+          <div class="admin-actions right">
+            <% if !@game.admin || (@game.admin && current_user && @game.admin == current_user.twitter_id)%>
+              <%= link_to 'Edit', edit_game_path(@game), :class => 'small button' %>
+            <% end %>
+          </div>
+        </h4>
       <% else %>
         <% if user_signed_in? %>
           <%= link_to 'Claim this game', '/games/' + @game.id + '/admin', :class => 'button small left' %>
@@ -17,7 +24,6 @@
     </div>
 
     <div id="map-canvas"></div>
-
 
     <div id="info-panels" class="large-12 no-padding small-12 columns">
       <div class="join-wrapper large-3 small-6 columns">
