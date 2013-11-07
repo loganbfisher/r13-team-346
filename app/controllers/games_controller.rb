@@ -51,6 +51,7 @@ class GamesController < ApplicationController
 
   # GET /games/1/edit
   def edit
+    session[:return_to] ||= request.referer
     @game = Game.find(params[:id])
   end
 
@@ -106,7 +107,7 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.update_attributes(params[:game])
-        format.html { redirect_to @game, notice: 'Game was successfully updated.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Game was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
