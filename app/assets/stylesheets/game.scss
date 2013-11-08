@@ -1,34 +1,40 @@
+@mixin box-shadow($color) {
+  -moz-box-shadow: 0px 2px 5px $color;
+  -webkit-box-shadow: 0px 2px 5px $color;
+  box-shadow: 0px 2px 5px $color;
+}
+
 #create-game, #show-game {
   #additional-information { display: none; }
   .tweet-text-sections { height: 46px; line-height: 45px; text-align: center; }
 
   .game { margin-bottom: 20px; }
-    .game-name-wrapper { padding: 5px;
+    .game-name-wrapper { padding: 10px 5px;
       span { margin-right: 10px; }
-      h4 { margin: 0; background: $secondary-color; @include clearfix;
+      h4 { margin: 0; background: $black; border-bottom: 1px solid #333; border-top: 1px solid #333; @include clearfix;
         a { color: $white; margin-top: 8px; float: left; }
       }
     }
-    .visit-game-wrapper { padding: 5px;
+    .visit-game-wrapper { padding: 10px 5px;
       a { font-family: "Raleway"; font-weight: 100; float: left; height: 178px; width: 100%; color: #fff; background: #333 url(image-path('icons/view-icon.png')) no-repeat 50% 25%; text-transform: uppercase; text-align: center; line-height: 230px; }
     }
-    .join-wrapper { padding: 5px;
+    .join-wrapper { padding: 10px 5px;
       a { font-family: "Raleway"; font-weight: 100; float: left; height: 178px; width: 100%; color: #fff; text-transform: uppercase; text-align: center; line-height: 230px;}
       a.join { background: #597a00 url(image-path('icons/checkmark-icon.png')) no-repeat 50% 25%; }
       a.leave { background: #cc0000 url(image-path('icons/leave-icon.png')) no-repeat 50% 25%; }
     }
-    .member-count-wrapper { padding: 5px;
+    .member-count-wrapper { padding: 10px 5px;
       a.user-count { padding-top: 35px; background: $primary-color; font-family: "Raleway"; font-weight: 100; float: left; height: 178px; width: 100%; color: #fff; text-transform: uppercase; text-align: center; font-size: 70px;
         p { font-size: 16px; }
       }
     }
-    .game-date-wrapper { padding: 5px;
+    .game-date-wrapper { padding: 10px 5px;
       a { padding-top: 35px; background: $primary-color; font-family: "Raleway"; font-weight: 100; float: left; height: 178px; width: 100%; color: #fff; text-transform: uppercase; text-align: center; font-size: 70px; line-height: 60px;
         p { font-size: 16px; margin: 0; padding-top: 10px; }
       }
     }
 
-  .time-and-location-wrapper { padding: 5px;
+  .time-and-location-wrapper { padding: 10px 5px;
     .time-wrapper { margin-top: 50px; }
     a {  background: $primary-color; font-family: "Raleway"; font-weight: 100; float: left; height: 178px; width: 100%; color: #fff; text-align: center; font-size: 35px; line-height: 30px;
       p { font-size: 16px; margin: 0; padding-top: 10px; text-transform: uppercase; }
@@ -37,14 +43,32 @@
 }
 
 #show-game {
-  #info-panels { position: fixed; bottom: 0; }
   .game-name-wrapper { padding: 0;
     h4 { line-height: 45px; }
     .admin-actions { padding-right: 10px;
       a { font-size: 12px; }
     }
   }
+
+  #game-content-area { padding-right: 0; }
+
+  #comment-column { padding: 0; background: url(image_path('black-Linen.png')) repeat 0 0; border-left: 1px solid #333;
+    .new_comment { margin: 0; }
+    .post-input-wrapper { padding: 10px; background: #000; border-bottom: 1px solid #333; @include box-shadow(#000);
+      .large-2 { padding: 0; }
+      .large-10 { padding: 0; }
+      input { margin: 0; }
+    }
+    .comment-list {
+      li { list-style-type: none; background: #000; padding: 10px; border-bottom: 1px solid #333; @include box-shadow(#000);
+        img { margin-right: 10px;}
+        strong {}
+        p { margin: 0; }
+      }
+    }
+  }
+
+
 }
 
-#map-canvas { width: 100%; position: absolute; z-index: -1 }
 

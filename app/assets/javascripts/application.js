@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require foundation
+//= require rails-timeago
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
@@ -119,5 +120,6 @@ $(document).ready(function(){
     map.setMapTypeId('map_style');
 
     var windowHeight = $(window).height();
-    $('#show-game #map-canvas').height(windowHeight);
+    $('#show-game #map-canvas').height(windowHeight - 300);
+    $('#comment-column').height(windowHeight - 120);
 });
