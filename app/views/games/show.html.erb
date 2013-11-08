@@ -82,7 +82,7 @@
 
     <div id="comment-column" class="large-4 columns">
       <% if user_signed_in? %>
-        <%= form_for(@comment) do |f| %>
+        <%= form_for(@comment, :remote => true, :method => "post") do |f| %>
           <% if @comment.errors.any? %>
             <div id="error_explanation">
               <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
@@ -108,16 +108,8 @@
           <%= link_to "Sign-in to comment", '/auth/twitter', :class => 'button large-12 columns' %>
         </div>
       <% end %>
-      <ul class="comment-list">
-        <% @comments.each do |comment| %>
-          <li class="clearfix">
-            <%= image_tag comment.author_image, :class => 'left' %>
-
-            <strong><%= comment.author_handle %></strong>
-            <small><%= timeago_tag comment.date_time, :nojs => true, :limit => 20.days.ago %></small>
-            <p><%= comment.comment %></p>
-          </li>
-        <% end %>
+      <ul class="comment-list" id="comment-list">
+        <%= render @comments %>
       </ul>
     </div>
   </div>

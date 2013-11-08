@@ -1,0 +1,7 @@
+<li class="clearfix">
+  <%= image_tag comment.user.image, :class => 'left' %>
+
+  <strong><%= comment.user.handle %></strong>
+  <small><%= timeago_tag comment.date_time, :nojs => true, :limit => 20.days.ago %></small>
+  <p><%= comment.comment %></p>
+</li>
