@@ -1,1 +1,2 @@
 $('#comment-list').html('<%= escape_javascript render(@comments) %>');
+$('.timeago time[data-time-ago]').timeago();
