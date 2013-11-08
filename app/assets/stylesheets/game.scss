@@ -1,3 +1,9 @@
+@mixin box-shadow($color) {
+  -moz-box-shadow: 0px 2px 5px $color;
+  -webkit-box-shadow: 0px 2px 5px $color;
+  box-shadow: 0px 2px 5px $color;
+}
+
 #create-game, #show-game {
   #additional-information { display: none; }
   .tweet-text-sections { height: 46px; line-height: 45px; text-align: center; }
@@ -5,7 +11,7 @@
   .game { margin-bottom: 20px; }
     .game-name-wrapper { padding: 5px;
       span { margin-right: 10px; }
-      h4 { margin: 0; background: $secondary-color; @include clearfix;
+      h4 { margin: 0; background: $black; border-bottom: 1px solid #333; border-top: 1px solid #333; @include clearfix;
         a { color: $white; margin-top: 8px; float: left; }
       }
     }
@@ -37,14 +43,32 @@
 }
 
 #show-game {
-  #info-panels { position: fixed; bottom: 0; }
   .game-name-wrapper { padding: 0;
     h4 { line-height: 45px; }
     .admin-actions { padding-right: 10px;
       a { font-size: 12px; }
     }
   }
+
+  #game-content-area { padding-right: 0; }
+
+  #comment-column { padding: 0; background: url(image_path('black-Linen.png')) repeat 0 0; border-left: 1px solid #333;
+    .new_comment { margin: 0; }
+    .post-input-wrapper { padding: 10px; background: #000; border-bottom: 1px solid #333; @include box-shadow(#000);
+      .large-2 { padding: 0; }
+      .large-10 { padding: 0; }
+      input { margin: 0; }
+    }
+    .comment-list {
+      li { list-style-type: none; background: #000; padding: 10px; border-bottom: 1px solid #333; @include box-shadow(#000);
+        img { margin-right: 10px;}
+        strong {}
+        p { margin: 0; }
+      }
+    }
+  }
+
+
 }
 
-#map-canvas { width: 100%; position: absolute; z-index: -1 }
 

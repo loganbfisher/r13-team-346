@@ -4,6 +4,7 @@ Pugwarriors::Application.routes.draw do
   resources :authentications
   resources :games
   resources :tweets
+  resources :comments
 
   authenticated :user do
     root :to => 'home#index'
@@ -26,9 +27,9 @@ Pugwarriors::Application.routes.draw do
   match '/games/:id/leave' => 'games#leave'
   match '/games/:id/admin' => 'games#admin'
   match '/users/:id/games' => 'users#games'
+  match '/games/:id/comments' => 'comments#create'
   match '/games/filter' => 'games#filter'
   match '/tweets/filter' => 'tweets#filter'
   match '/tweets/get_new_tweets' => 'tweets#get_new_tweets'
-
   match '/auth/:provider/callback' => 'authentications#create'
 end

@@ -23,57 +23,104 @@
       <% end %>
     </div>
 
-    <div id="map-canvas"></div>
-
-    <div id="info-panels" class="large-12 no-padding small-12 columns">
-      <div class="join-wrapper large-3 small-6 columns">
-        <% if user_signed_in? %>
-          <div id="join-leave-<%= @game.id.to_s %>">
-            <% if @game.users.present? && @game.users.where(:_id => current_user.id).first %>
-              <%= link_to "Leave Game", '/games/' + @game.id + '/leave', {:remote => true, :class => 'leave'} %>
-            <% else %>
-              <%= link_to "Join Game", '/games/' + @game.id + '/join', {:remote => true, :class => 'join'} %>
-            <% end %>
-          </div>
-        <% else %>
-          <%= link_to "Sign-in to join", '/auth/twitter' %>
-        <% end %>
-      </div>
-
-      <div class="time-and-location-wrapper large-3 small-6 columns">
-        <a class="time-and-location">
-          <div class="time-wrapper">
-            <%= @game.time %>
-          </div>
-          <div class="location-wrapper">
-            <p><%= @game.location %></p>
-          </div>
-        </a>
-      </div>
-
-      <div class="member-count-wrapper large-3 small-6 columns">
-        <div id="member-count-<%= @game.id.to_s %>">
-          <% if @game.users.present? %>
-            <a href="#" class="user-count">
-              <%= @game.users.count %>
-              <p>Players</p>
-            </a>
+    <div id="game-content-area" class="large-8 columns">
+      <div id="map-canvas"></div>
+      <div id="info-panels" class="large-12 no-padding small-12 columns">
+        <div class="join-wrapper large-3 small-6 columns">
+          <% if user_signed_in? %>
+            <div id="join-leave-<%= @game.id.to_s %>">
+              <% if @game.users.present? && @game.users.where(:_id => current_user.id).first %>
+                <%= link_to "Leave Game", '/games/' + @game.id + '/leave', {:remote => true, :class => 'leave'} %>
+              <% else %>
+                <%= link_to "Join Game", '/games/' + @game.id + '/join', {:remote => true, :class => 'join'} %>
+              <% end %>
+            </div>
           <% else %>
-            <a href="#" class="user-count">
-              0
-              <p>Players</p>
-            </a>
+            <%= link_to "Sign-in to join", '/auth/twitter' %>
           <% end %>
         </div>
-      </div>
 
-      <div class="game-date-wrapper large-3 small-6 columns">
-        <a href="">
-          <p><%= @game.date.strftime('%B') %></p>
-          <%= @game.date.strftime('%d') %>
-        </a>
+        <div class="time-and-location-wrapper large-3 small-6 columns">
+          <a class="time-and-location">
+            <div class="time-wrapper">
+              <%= @game.time %>
+            </div>
+            <div class="location-wrapper">
+              <p><%= @game.location %></p>
+            </div>
+          </a>
+        </div>
+
+        <div class="member-count-wrapper large-3 small-6 columns">
+          <div id="member-count-<%= @game.id.to_s %>">
+            <% if @game.users.present? %>
+              <a href="#" class="user-count">
+                <%= @game.users.count %>
+                <p>Players</p>
+              </a>
+            <% else %>
+              <a href="#" class="user-count">
+                0
+                <p>Players</p>
+              </a>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="game-date-wrapper large-3 small-6 columns">
+          <a href="">
+            <p><%= @game.date.strftime('%B') %></p>
+            <%= @game.date.strftime('%d') %>
+          </a>
+        </div>
       </div>
     </div>
+
+    <div id="comment-column" class="large-4 columns">
+      <% if user_signed_in? %>
+        <%= form_for(@comment) do |f| %>
+          <% if @comment.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+              <ul>
+                <% @comment.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="row post-input-wrapper">
+            <div class="large-10 columns">
+              <%= f.text_field(:comment, :placeholder => "Write a comment") %>
+              <%= f.hidden_field(:game_id, :value => @game.id) %>
+            </div>
+            <div class="large-2 columns">
+              <%= f.submit "Post", :class => 'button secondary right' %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="row post-input-wrapper">
+          <%= link_to "Sign-in to comment", '/auth/twitter', :class => 'button large-12 columns' %>
+        </div>
+      <% end %>
+      <ul class="comment-list">
+        <% @comments.each do |comment| %>
+          <li class="clearfix">
+            <%= image_tag comment.author_image, :class => 'left' %>
+
+            <strong><%= comment.author_handle %></strong>
+            <small><%= timeago_tag comment.date_time, :nojs => true, :limit => 20.days.ago %></small>
+            <p><%= comment.comment %></p>
+          </li>
+        <% end %>
+      </ul>
+
+    </div>
+
+
+
+
   </div>
 </div>
 

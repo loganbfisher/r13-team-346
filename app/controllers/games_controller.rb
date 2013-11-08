@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all.sort_by(&:date)
+    @games = Game.all.order_by([:date, :desc])
     @games.each do |game|
       if game.admin
         user = User.where({'twitter_id' => game.admin}).first
@@ -22,6 +22,8 @@ class GamesController < ApplicationController
   # GET /games/1.json
   def show
     @game = Game.find(params[:id])
+    @comment = Comment.new
+    @comments = @game.comments.order_by([:date_time, :desc])
     w_api = Wunderground.new('fdb34ff48699837d')
     @weather = w_api.planner_for(@game.date, @game.date, @game.zip)
     # Variables for use inside of application.js

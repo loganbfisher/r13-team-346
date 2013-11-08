@@ -5,6 +5,7 @@ class User
   has_many :authentications, :dependent => :delete
   has_and_belongs_to_many :games
   has_many :tweets
+  has_many :comments
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
