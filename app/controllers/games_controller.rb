@@ -154,6 +154,7 @@ class GamesController < ApplicationController
   def leave
     if current_user
       @game = Game.find(params[:id])
+      leave_notification
       respond_to do |format|
         if remove_user_from_game
           format.html { redirect_to @game, notice: 'Left game.'}
