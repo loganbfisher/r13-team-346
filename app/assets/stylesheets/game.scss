@@ -70,7 +70,9 @@
     p { margin: 0; }
   }
 }
-ul.notifications-list { display: none; position: absolute; z-index: 9999; right: 0; }
+ul.notifications-list { display: none; position: absolute; z-index: 9999; right: 0;
+  li { background: #333; }
+}
 .notification-button { cursor: pointer; }
 
 

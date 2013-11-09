@@ -15,4 +15,14 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  def joined_notification
+    @notification = Notification.new(params[:notification])
+    @notification.notifier_image = current_user.image
+    @notification.notifier_handle = current_user.handle
+    @notification.notifier_game = @game.name
+    @notification.notifier_date_time = Time.now
+    @notification.message = 'has joined your game '
+    @notification.game_admin_id = @game.admin
+    @notification.save
+  end
 end
