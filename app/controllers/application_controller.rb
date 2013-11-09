@@ -14,4 +14,5 @@ class ApplicationController < ActionController::Base
       :oauth_token_secret => secret
     )
   end
+
 end
