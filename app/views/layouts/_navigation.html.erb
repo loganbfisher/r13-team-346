@@ -14,7 +14,6 @@
           <%= link_to 'Find a game', games_path %>
         </li>
         <li>
-          <%= image_tag 'icons/notification-icon.png', :class => 'notification-button' %>
           <%= render_cell :notifications, :show, :user => current_user %>
         </li>
 

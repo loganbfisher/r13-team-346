@@ -15,6 +15,16 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  def viewed_notification
+    session[:return_to] ||= request.referer
+    @notifications = Notification.where(:flag_read => 0)
+    @notifications.each do |notification|
+      notification.flag_read = 1
+      notification.save
+    end
+    redirect_to session.delete(:return_to)
+  end
+
   def joined_notification
     @notification = Notification.new(params[:notification])
     @notification.notifier_image = current_user.image
@@ -23,6 +33,7 @@ class ApplicationController < ActionController::Base
     @notification.notifier_date_time = Time.now
     @notification.message = 'has joined your game '
     @notification.game_admin_id = @game.admin
+    @notification.flag_read = 0
     @notification.save
   end
 
@@ -34,6 +45,7 @@ class ApplicationController < ActionController::Base
     @notification.notifier_date_time = Time.now
     @notification.message = 'has left your game '
     @notification.game_admin_id = @game.admin
+    @notification.flag_read = 0
     @notification.save
   end
 end

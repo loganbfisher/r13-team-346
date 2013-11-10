@@ -1,4 +1,8 @@
 <% if @user.present? %>
+  <% if @unread_notifications.count != 0 %>
+    <span class="notification-alert"><%= @unread_notifications.count %></span>
+  <% end %>
+  <%= link_to image_tag('icons/notification-icon.png'), {:controller => "application", :action => "viewed_notification"}, {:class => 'notification-button', :remote => true} %>
   <ul class="notifications-list">
     <% @notifications.each do |notification| %>
       <li class="clearfix">
